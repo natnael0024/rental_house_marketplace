@@ -1,0 +1,33 @@
+{%extends "base.html"%}
+{%block title %} home {%endblock title %}
+{% block content%}
+
+    <div class=" mt-5 flex flex-col gap-3 ">
+        <div class=" flex gap-2 w-full overflow-x-scroll  ">
+            {% for media in listing.medias.all %}
+                <img class=" h-[30rem] w-[140rem] object-cover" src="{{ media.file_path }}" alt="Listing Media">
+            {% endfor %}
+        </div>
+        <div class=" flex flex-col gap-2">
+            <div class=" flex flex-col justify-between ">
+                <a class="text-2xl font-semibold" href={{listing.id}}> {{ listing.title }} </a>
+                <span class=" font-semibold text-xl text-orange-600">${{listing.price}} monthly 💴</span>
+            </div>
+            <div class=" flex flex-col gap-2">
+                <span>📌 {{listing.city}}, {{listing.sub_city}}, {{listing.area}}</span>
+                <div class=" flex gap-10">
+                    <span class=" bg-green-300 p-1 rounded">🏛  {{listing.rooms}} room(s)</span>
+                    <span class="bg-green-300 p-1 rounded ">🛏 {{listing.bedrooms}} bedroom(s)</span>
+                    <span class="bg-green-300 p-1 rounded">🛁 {{listing.bathrooms}} bathroom(s)</span>
+                </div>
+                <div>
+                    <span class=" font-semibold">📱 {{listing.phone_number1}}, {{listing.phone_number2}}</span>
+                </div>
+            </div>
+            <div>
+                {{listing.desc}}
+            </div>
+        </div>
+    </div>
+
+{% endblock content%}
