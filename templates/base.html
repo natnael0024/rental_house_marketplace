@@ -8,16 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     {% tailwind_css %}
-    <title>የሚከራይ ቤት አለ | {%block pagetitle %} {% endblock pagetitle %}</title>
+    <title>የሚከራይ ቤት አለ {%block pagetitle %} {% endblock pagetitle %}</title>
 </head>
 <body class=" lg:px-40 px-2 relative">
-<nav class="bg-white py-1 border border-red-400 flex sm:flex-row flex-col items-center justify-between sm:sticky sm:top-0">
-    <div class=" flex items-center gap-1 text-3xl">
+    <div class=" border sm:hidden flex items-center text-2xl text-center w-full">
+        🏡
+        <h3 class="">YBA</h3>
+    </div>
+<nav class="bg-white py-1  flex sm:flex-row flex-col items-center justify-between sticky top-0 z-50">
+    <div class=" hidden sm:flex items-center gap-1 text-3xl">
       🏡
       <h3>YBA</h3>
     </div>
-    <div class=" sticky top-0 sm:relative sm:top-0 mx-auto bg-white shadow-md rounded-lg">
-        <form class=" gap-2 flex w-full">
+    <div class=" sticky top-0 sm:relative sm:top-0 mx-auto bg-white rounded-lg">
+        <form class=" gap-2 flex">
             <div class=" w-full">
                 <select id="city" name="city" class="w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring-cyan-500">
                     {%if request.GET.city %}
@@ -48,17 +52,17 @@
                     {% endfor %}
                 </select>
             </div>
-            <button id="filterButton" type="submit" class="w-full bg-cyan-800 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-md">
+            <button id="filterButton" type="submit" class="w-full bg-cyan-600 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-md">
                 Search
             </button>
         </form>
     </div>
-    <div>
+    <div class=" hidden sm:block">
         <span class=" text-xl">🙍🏾‍♂️ Profile</span>
     </div>
   </nav>
   
-    <div>
+    <div class=" mx-auto">
         {%block content%}
         {%endblock content%}
     </div>

@@ -24,7 +24,7 @@ def index(request):
         base_query = base_query.filter(sub_city__icontains=subcity)
     listings = base_query
 
-    paginator = Paginator(listings, 4)  # Show 10 orders per page
+    paginator = Paginator(listings, 20)  # Show 10 orders per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -86,7 +86,7 @@ def listing_create(request):
     return render(request, "listing/create.html",context)
 
 def set_status(request,id):
-    listing = get_object_or_404(id=id,user_id=request.user.id)
+    listing = get_object_or_404(Listing, id=id,user_id=request.user.id)
     listing.status = not listing.status
     listing.save()
 
