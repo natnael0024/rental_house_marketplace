@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'listing',
-    'corsheaders'
+    'messaging',
+    'corsheaders',
+    'fontawesomefree'
 ]
 
 MIDDLEWARE = [
@@ -102,11 +104,11 @@ WSGI_APPLICATION = 'projectrhm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get("DB_ENGINE"),
-        'NAME': os.environ.get("DB_NAME"),
-        'USER': os.environ.get("DB_USER"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),
-        'PORT': os.environ.get("DB_PORT"),
+        'NAME': 'defaultdb',
+        'USER':'avnadmin',
+        'PASSWORD': 'AVNS_lDfQVubIgasJ6S1pHod',
+        'HOST': 'pg-2133a97f-netcoin2077-9ce2.h.aivencloud.com',
+        'PORT': '21002',
     }
 }
 
