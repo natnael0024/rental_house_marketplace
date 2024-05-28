@@ -17,7 +17,10 @@
       <a class="text-xl font-semibold" href="{{ listing.id }}"> {{ listing.title }} </a>
       <span class=" text-white text-xs font-semibold px-2.5 py-0.5 rounded  {% if listing.status %} bg-green-400 text-cyan-600  {% elif not listings.status %} bg-red-400 text-red-600 {% endif %}">{%if listing.status %} available {%else%} unavailable {%endif%}</span>
     </div>
-    <span class="text-sm">{{ listing.city }}, {{ listing.sub_city }}, {{ listing.area }}</span>
+    <div class=" flex items-center gap-2">
+      <i class="fas fa-map-marker-alt    "></i>
+      <span class="text-sm">{{ listing.area }}, {{ listing.sub_city }}, {{ listing.city }}</span>
+    </div>
     <div class="flex">
       <span class="">🏛 {{ listing.rooms }} rooms</span>
       <span class="">🛏 {{ listing.bedrooms }} bedrooms</span>
