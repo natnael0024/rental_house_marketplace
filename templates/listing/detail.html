@@ -9,16 +9,27 @@
             {% endfor %}
         </div>
         <div class=" flex flex-col gap-2">
+            <div>
+                <!-- <div class="form-group">
+                    <label for="my-input">Text</label>
+                    <input id="my-input" class="form-control-range" type="range" name="" min="0" max="100">
+                </div> -->
+                <i class="fas fa-user border p-2 rounded-full "></i>
+                <span>{{listing.user.first_name}} {{listing.user.last_name}}</span>
+            </div>
             <div class=" flex flex-col justify-between ">
-                <a class="text-2xl font-semibold" href={{listing.id}}> {{ listing.title }} </a>
+                <h3 class="text-2xl font-semibold" > {{ listing.title }} </h3>
                 <span class=" font-semibold text-xl text-orange-600">${{listing.price}} monthly 💴</span>
             </div>
             <div class=" flex flex-col gap-2">
-                <span>📌 {{listing.city}}, {{listing.sub_city}}, {{listing.area}}</span>
+                <div class=" flex gap-2 items-center">
+                    <i class="fas fa-map-marker-alt    "></i>
+                    <span> {{listing.area}}, {{listing.sub_city}}, {{listing.city}}</span>
+                </div>
                 <div class=" flex gap-10">
-                    <span class=" bg-green-300 p-1 rounded">🏛  {{listing.rooms}} room(s)</span>
-                    <span class="bg-green-300 p-1 rounded ">🛏 {{listing.bedrooms}} bedroom(s)</span>
-                    <span class="bg-green-300 p-1 rounded">🛁 {{listing.bathrooms}} bathroom(s)</span>
+                    <span class="   rounded">🏛  {{listing.rooms}} room(s)</span>
+                    <span class="  rounded ">🛏 {{listing.bedrooms}} bedroom(s)</span>
+                    <span class="  rounded">🛁 {{listing.bathrooms}} bathroom(s)</span>
                 </div>
                 <div>
                     <span class=" font-semibold">📱 {{listing.phone_number1}}, {{listing.phone_number2}}</span>

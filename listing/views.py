@@ -39,7 +39,8 @@ def index(request):
              '5000':'<=5000',
              '10000':'<=10000',
              '20000': '<=20000'
-        }
+        },
+        "user":request.user
     }
 
     return render(request, 'listing/index.html', context)

@@ -1,0 +1,24 @@
+{% extends "base.html"%}
+
+{% block content%}
+
+<div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold mb-4">Conversation with {{ conversation.participants.all|join:", " }}</h2>
+    <ul class="space-y-4">
+        {% for message in messages %}
+        <li class="flex items-center">
+            <span class="font-semibold mr-2">{{ message.author.first_name }}:</span>
+            <span>{{ message.content }}</span>
+            <span class="text-xs text-opacity-20">{{ message.created_at|timesince }}</span>
+        </li>
+        {% empty %}
+        <li>No messages yet.</li>
+        {% endfor %}
+    </ul>
+    <form method="post" action="{% url 'send_message' pk=conversation.pk %}" class="mt-4">
+        {% csrf_token %}
+        <input type="text" name="content" placeholder="Type your message..." class=" w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-cyan-500">
+        <button type="submit" class="mt-2 px-4 py-2 bg-cyan-600 text-white rounded hover:bg-cyan-600 focus:outline-none focus:bg-cyan-600">Send</button>
+    </form>
+</div>
+{% endblock content%}
