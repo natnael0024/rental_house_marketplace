@@ -5,7 +5,7 @@
 {% if messages %}
 <div class=" mt-32 text-center w-full">
     {% for message in messages %}
-    <span class=" text-4xl text-white font-weight-bolder" >{{ message }}</span>
+    <span class=" text-4xl text-gray-700 font-weight-bolder" >{{ message }} 😔</span>
     {% endfor %}
 </div>
 {% endif %}
@@ -17,9 +17,9 @@
     </div>
 
       <!-- Pagination -->
-  {% comment %} pag2 {% endcomment %}
+ {%if listings|length > 1 %}
  <div class="mt-10">
- <div class="">
+  <div class="">
    <nav aria-label="Page navigation">
      <ul class="pagination justify-center flex gap-5"> 
         <!-- {% if page_obj.has_previous %}
@@ -42,8 +42,9 @@
        {% endif %}  -->
      </ul>
    </nav>
+  </div>
  </div>
- </div>
+ {%endif%}
 
  
 <script>

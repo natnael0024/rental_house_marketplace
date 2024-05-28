@@ -3,59 +3,59 @@
 {% block content%}
 
 <h2 class="text-2xl text-cyan-950 font-bold text-center">Add Listing</h2>
-<form method='POST' enctype="multipart/form-data" class=" flex justify-between    mx-auto border border-red-300 mt-10">
+<form method='POST' enctype="multipart/form-data" class=" flex justify-between  mx-auto border border-red-300 mt-10">
     {% csrf_token %}
     <div class=" flex flex-col">
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.title.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.title.label_tag }}</div>
             <div>{{ form.title }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.price.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.price.label_tag }}</div>
             <div>{{ form.price }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.rooms.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.rooms.label_tag }}</div>
             <div>{{ form.rooms }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.bedrooms.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.bedrooms.label_tag }}</div>
             <div>{{ form.bedrooms }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.bathrooms.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.bathrooms.label_tag }}</div>
             <div>{{ form.bathrooms }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.square_metre.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.square_metre.label_tag }}</div>
             <div>{{ form.square_metre }}</div>
         </div>
     </div>
     <div class="flex flex-col">
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.city.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.city.label_tag }}</div>
             <div class="">{{ form.city }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.sub_city.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.sub_city.label_tag }}</div>
             <div>{{ form.sub_city }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.area.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.area.label_tag }}</div>
             <div>{{ form.area }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.phone_number1.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.phone_number1.label_tag }}</div>
             <div>{{ form.phone_number1 }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.phone_number2.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.phone_number2.label_tag }}</div>
             <div>{{ form.phone_number2 }}</div>
         </div>
     </div>
     <div class="flex flex-col">
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.desc.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.desc.label_tag }}</div>
             <div>{{ form.desc }}</div>
         </div>
         <input type="file" name="media" id="">

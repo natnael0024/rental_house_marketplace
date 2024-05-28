@@ -24,7 +24,7 @@ def index(request):
         base_query = base_query.filter(sub_city__icontains=subcity)
     listings = base_query
 
-    paginator = Paginator(listings, 20)  # Show 10 orders per page
+    paginator = Paginator(listings, 8)  # Show 10 orders per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
