@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'users',
     'tailwind',
     'theme',
-    'listing'
+    'listing',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,24 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'yba.onrender.com',
+    
+]
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "https://yba.onrender.com"
+]
+
+
+
 
 ROOT_URLCONF = 'projectrhm.urls'
 
