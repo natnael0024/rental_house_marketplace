@@ -28,6 +28,7 @@ class Listing(models.Model):
 class ListingMedia(models.Model):
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name='medias')
     file_path = models.TextField()
+    file_name = models.TextField(null=True, blank=True)
     media_type = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

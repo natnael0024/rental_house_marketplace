@@ -1,14 +1,38 @@
 {% extends "base.html" %}
 {% block content%}
+
 <h3 class=" text-2xl font-bold mt-4">Chats</h3>
-<div class=" mt-5">
+<div class=" mt-5 flex flex-col gap-2">
     {% for conversation in conversations %}
-    <a href="{% url 'conversation_detail' pk=conversation.pk %}" class="  bg-gray-100 hover:bg-cyan-100 p-1 rounded flex items-center gap-2 ">  
-        <div class=" w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-500 to-cyan-200 text-2xl font-semibold text-white flex items-center justify-center">
-            {{ other_participant.first_name|slice:":1" }}</h2>
+    <a href="{% url 'conversation_detail' pk=conversation.pk %}" class=" h-[5rem]  bg-gray-100 hover:bg-cyan-100 p-1 rounded flex flex-col items-start gap-2 ">  
+        <div class=" flex items-start gap-2">
+                <div class=" ">
+                    {% if conversation.listing %}
+                    {% with last_image=conversation.listing.medias.first %}
+                        <img class=" h-[5rem] w-[5rem] object-cover" src="{{ last_image.file_path }}" alt="Listing Media">
+                    {% endwith %}
+                    {% endif %}
+                </div>
+                <div>
+                    {% for participant in conversation.participants.all %}
+                        {% if participant != request.user %}
+                        <span>{{ participant.first_name }}</span>
+                        {%endif%}
+                    {%endfor%}
+                </div>
+                <div class=" ml-14">
+                    {% if conversation.messages.exists %}
+                        {% with last_message=conversation.messages.last %}
+                          <p class=" text-gray-400">{{ last_message.content }}</p>
+                        {% endwith %}
+                    {% else %}
+                        <p>No messages yet</p>
+                    {% endif %}
+                </div>
         </div>
-        <span>{{ other_participant.first_name }}</span>
+        
     </a>
 {% endfor %}
 </div>
+
 {% endblock content%}

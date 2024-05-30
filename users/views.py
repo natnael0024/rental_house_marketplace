@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm
 from .forms import UserLoginForm
+from django.contrib.auth.decorators import login_required
 
 def register(request):
     if request.method == 'POST':   
@@ -18,7 +19,7 @@ def register(request):
         # password = request.POST['password']
         # user = CustomUser.objects.create_user(username=username, password=password)
             login(request, user)
-            return redirect('home')
+            return redirect('listings')
     else:
         form = UserRegistrationForm()
         context = {
@@ -40,7 +41,7 @@ def login_view(request):
         if user is not None:
             # Log the user in
             login(request, user)
-            return redirect('home')
+            return redirect('listings')
         else:
             # Invalid credentials
             context = {
@@ -48,13 +49,14 @@ def login_view(request):
                 'error': 'Invalid credentials'
             }
             return render(request, 'auth/login.html',context)
-            return redirect('login_view')
+            # return redirect('login_view')
     else:
         return render(request, 'auth/login.html',context)
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('listings')
 
+@login_required 
 def home_view(request):
     return render(request,'home.html', {'id': request.user.id})
