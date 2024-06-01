@@ -4,6 +4,7 @@ from .forms import ListingForm
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.contrib import messages
+from django.urls import reverse
 import uuid
 import os
 from django.core.paginator import Paginator
@@ -129,7 +130,7 @@ def listing_create(request):
             context = {
                 "listings":listings
             }
-            return redirect("home")
+            return redirect("listings")
         return 
     form = ListingForm()
     context = {
@@ -142,6 +143,8 @@ def set_status(request,id):
     listing = get_object_or_404(Listing, id=id,user_id=request.user.id)
     listing.status = not listing.status
     listing.save()
+    url = reverse('listing_retrieve', kwargs={'id': listing.id})
+    return redirect(url)
 
 @login_required
 def listing_update(request, id):

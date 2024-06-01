@@ -15,66 +15,17 @@
 </head>
 <body class=" lg:px-40 px-2  min-h-[100rem] flex flex-col justify-between">
     <div>
-        <div class=" border sm:hidden  text-2xl text-center w-full">
+        <!-- mobile -->
+        <div class="  sm:hidden  text-2xl text-center w-full flex items-center justify-between ">
             <a href="{% url 'listings' %}" class="flex items-center gap-1 text-3xl">
                 <span>🏡</span>
                 <h3>YBA</h3>
             </a>
-        </div>
-        <nav class="bg-white py-1  flex sm:flex-row flex-col items-center justify-between sticky top-0 z-50">
-            <div class=" hidden sm:flex items-center gap-1 text-3xl">
-              <a href="{% url 'listings' %}" class="flex items-center gap-1 text-3xl">
-                <span>🏡</span>
-                <h3>YBA</h3>
-              </a>
-            </div>
-            <div class=" sticky top-0 sm:relative sm:top-0 mx-auto bg-white rounded-lg">
-                <form class="gap-2 flex">
-                    <div class="w-full">
-                        <select id="city" name="city" class="w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring-cyan-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                            {% if request.GET.city %}
-                            <option value="" class="bg-white text-gray-700 hover:bg-gray-200">{{ request.GET.city }}</option>
-                            {% else %}
-                            <option value="" class="bg-white text-gray-400 hover:bg-gray-200">Select City</option>
-                            {% endif %}
-                            {% for city in cities %}
-                            {% if city != request.GET.city %}
-                            <option value="{{ city }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ city }}</option>
-                            {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="w-full">
-                        <select id="subcity" name="subcity" class="w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring-cyan-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="" class="bg-white py-2 text-gray-400 hover:bg-gray-200">Select a subcity</option>
-                            {% for subcity in subcities %}
-                            <option value="{{ subcity }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ subcity }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="w-full">
-                        <select id="price" name="price" class="w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring-cyan-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="" class="bg-white text-gray-400 hover:bg-gray-200">Select a price range</option>
-                            {% for key, value in price_ranges.items %}
-                            <option value="{{ key }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ value }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <button id="filterButton" type="submit" class="border bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 ease-in-out">
-                        Search
-                    </button>
-                </form>
-            </div>
-            <div class=" flex items-center gap-3">
-                <a  href="{% url 'listing_create' %}" class="border bg-cyan-600 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-md">
-                    Post
-                </a>
-                {%if user.is_authenticated%}
-                
-                <div class=" hidden sm:block">
+            {%if user.is_authenticated%}
+                <div class=" ">
                     <div class="relative inline-block text-left">
                         <div>
-                          <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" id="menu-button" aria-expanded="false" aria-haspopup="true">
+                          <button id="menu-button-mob" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"  aria-expanded="false" aria-haspopup="true">
                             {{user.first_name}}
                             <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -82,7 +33,7 @@
                           </button>
                         </div>
                       
-                        <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" style="display: none;">
+                        <div class="origin-top-right-mob absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" style="display: none;">
                           <div class="py-1" role="none">
                             <a href=" {% url 'my_listings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-0">My Listings</a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-1">Update Profile</a>
@@ -93,6 +44,83 @@
                 </div>
                 {%else%}
                 <a href="{%url 'login' %}"  class="border bg-cyan-600 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-md">
+                    Login
+                </a>
+                {%endif%}
+        </div>
+        <nav class="bg-white py-1  flex sm:flex-row flex-col items-center justify-between sticky top-0 z-50">
+            <div class=" hidden sm:flex items-center gap-1 text-3xl">
+              <a href="{% url 'listings' %}" class="flex items-center gap-1 text-3xl">
+                <span>🏡</span>
+                <h3>YBA</h3>
+              </a>
+            </div>
+            <div class=" sticky w-full sm:w-[35rem]  top-0 sm:relative sm:top-0 mx-auto bg-white rounded-lg">
+                <form class="gap-2 flex">
+                    <div class="w-full">
+                        <select id="city" name="city" class="w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring-cyan-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            {% if request.GET.city %}
+                            <option value="" class="bg-white text-gray-700 hover:bg-gray-200">{{ request.GET.city }}</option>
+                            {% else %}
+                            <option value="" class="bg-white text-gray-400 hover:bg-gray-200">City</option>
+                            {% endif %}
+                            {% for city in cities %}
+                            {% if city != request.GET.city %}
+                            <option value="{{ city }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ city }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="w-full">
+                        <select id="subcity" name="subcity" class="w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring-cyan-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="" class="bg-white py-2 text-gray-400 hover:bg-gray-200">Subcity</option>
+                            {% for subcity in subcities %}
+                            <option value="{{ subcity }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ subcity }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="w-full">
+                        <select id="price" name="price" class="w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring-cyan-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="" class="bg-white text-gray-400 hover:bg-gray-200">Price range</option>
+                            {% for key, value in price_ranges.items %}
+                            <option value="{{ key }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button id="filterButton" type="submit" class="border bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 ease-in-out flex items-center gap-2">
+                        <i class="fas fa-search  "></i>
+                        <span class=" hidden sm:block">Search</span>
+                    </button>
+                </form>
+            </div>
+            <div class=" flex  items-center gap-3">
+                <a  href="{% url 'listing_create' %}" class=" hidden sm:block  border bg-cyan-600 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-md">
+                    Post
+                </a>
+                {%if user.is_authenticated%}
+                
+                <div class=" hidden sm:block">
+                    <div class="relative inline-block text-left">
+                        <div>
+                          <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-cyan-500" id="menu-button" aria-expanded="false" aria-haspopup="true">
+                            {{user.first_name}}
+                            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                          </button>
+                        </div>
+                      
+                        <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" style="display: none;">
+                          <div class="py-1" role="none">
+                            <a href=" {% url 'my_listings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-0">My Listings</a>
+                            <a href="{% url 'profile_update_view' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-1">Update Profile</a>
+                            <a href="{%url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-2">Sign Out</a>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                {%else%}
+                <a href="{%url 'login' %}"  class=" hidden sm:block border bg-cyan-600 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-md">
                     Login
                 </a>
                 {%endif%}
@@ -199,23 +227,34 @@
             var subcity = $('#subcity').val();
             var price = $('#price').val();
             
-            console.log(city, subcity, price)
             var url = '{% url "listings" %}?city=' + city + '&subcity=' + subcity + '&price=' + price;
             window.location.href = url;
         }); 
-    
+
         const menuButton = document.getElementById('menu-button');
+        const menuButtonmob = document.getElementById('menu-button-mob');
         const menuOptions = document.querySelector('.origin-top-right');
+        const menuOptionsmob = document.querySelector('.origin-top-right-mob');
+
 
         menuButton.addEventListener('click', () => {
           menuOptions.style.display = menuOptions.style.display === 'none' ? 'block' : 'none';
           menuButton.setAttribute('aria-expanded', menuOptions.style.display === 'none' ? 'false' : 'true');
         });
 
+        menuButtonmob.addEventListener('click', () => {
+            menuOptionsmob.style.display = menuOptionsmob.style.display === 'none' ? 'block' : 'none';
+            menuButtonmob.setAttribute('aria-expanded', menuOptionsmob.style.display === 'none' ? 'false' : 'true');
+          });
+
         document.addEventListener('click', (event) => {
           if (!menuButton.contains(event.target) && !menuOptions.contains(event.target)) {
             menuOptions.style.display = 'none';
             menuButton.setAttribute('aria-expanded', 'false');
+          }
+          if (!menuButtonmob.contains(event.target) && !menuOptionsmob.contains(event.target)) {
+            menuOptionsmob.style.display = 'none';
+            menuButtonmob.setAttribute('aria-expanded', 'false');
           }
         });
         
