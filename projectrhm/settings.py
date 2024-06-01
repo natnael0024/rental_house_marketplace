@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'listing',
     'messaging',
     'corsheaders',
-    'fontawesomefree'
+    'fontawesomefree',
+    'admindashboard',
 ]
 
 MIDDLEWARE = [
@@ -101,27 +102,27 @@ WSGI_APPLICATION = 'projectrhm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': os.environ.get("DB_ENGINE"),
-#         'NAME': os.environ.get("DB_NAME"),
-#         'USER':os.environ.get("DB_USER"),
-#         'PASSWORD': os.environ.get("DB_PASSWORD"),
-#         'HOST': os.environ.get("DB_HOST"),
-#         'PORT': os.environ.get("DB_PORT"),
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get("DB_ENGINE"),
-        'NAME': 'defaultdb',
-        'USER':'avnadmin',
-        'PASSWORD': 'AVNS_lDfQVubIgasJ6S1pHod',
-        'HOST': 'pg-2133a97f-netcoin2077-9ce2.h.aivencloud.com',
-        'PORT': '21002',
+        'NAME': os.environ.get("DB_NAME"),
+        'USER':os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("DB_PORT"),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': os.environ.get("DB_ENGINE"),
+#         'NAME': 'rhmdb',
+#         'USER':'postgres',
+#         'PASSWORD': 'nat@postgress',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 
 
 

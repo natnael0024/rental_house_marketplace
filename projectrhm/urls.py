@@ -24,4 +24,5 @@ urlpatterns = [
     path('accounts/', include('users.urls')),
     path('listings/', include('listing.urls')),
     path('messaging/', include('messaging.urls')),
+    path('admin-panel/', include('admindashboard.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

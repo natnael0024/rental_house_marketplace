@@ -13,7 +13,7 @@
             </div>
             {%endif%}
             {% for media in listing.medias.all %}
-                <img class=" h-[30rem] w-[140rem] object-cover" src="{{ media.file_path }}" alt="Listing Media">
+                <img class=" h-[30rem] w-[140rem] object-cover rounded" src="{{ media.file_path }}" alt="Listing Media">
             {% endfor %}
         </div>
         <div class=" flex flex-col gap-2">
@@ -26,10 +26,28 @@
                     <i class="fas fa-user border p-2 rounded-full "></i>
                     <span>{{listing.user.first_name}} {{listing.user.last_name}}</span>
                 </div>
-                <a href="{% url 'start_conversation' listing_id=listing.id user_id=listing.user_id %}" class="text-white bg-cyan-700 hover:bg-cyan-600 focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Send Message</a>
+                {%if user.id != listing.user.id and listing.status %}
+                <a href="{% url 'start_conversation' listing_id=listing.id user_id=listing.user_id %}" class="text-white bg-cyan-600 hover:bg-cyan-500 focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                    Send Message
+                </a>
+                {%endif%}
+                {%if user.id == listing.user.id %}
+                    {%if listing.status %}
+                    <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-cyan-600 hover:bg-cyan-500 focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                        Mark as Unavailable
+                    </a>
+                    {%else%}
+                    <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-cyan-600 hover:bg-cyan-500 focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                        Mark as available
+                    </a>
+                    {%endif%}
+                {%endif%}
             </div>
             <div class=" flex flex-col justify-between ">
-                <h3 class="text-2xl font-semibold" > {{ listing.title }} </h3>
+                <div class=" flex gap-3 items-center">
+                    <h3 class="text-2xl font-semibold" > {{ listing.title }} </h3>
+                    <span class=" text-white text-xs font-semibold px-2.5 py-0.5 rounded  {% if listing.status %} bg-green-400  {% elif not listings.status %} bg-red-400 {% endif %}">{%if listing.status %} available {%else%} unavailable {%endif%}</span>    
+                </div>
                 <span class=" font-semibold text-xl text-orange-600">${{listing.price}} monthly 💴</span>
             </div>
             <div class=" flex flex-col gap-2">

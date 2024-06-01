@@ -9,7 +9,7 @@ class MessageForm(forms.ModelForm):
         widgets = {
             'content': forms.TextInput(attrs={
             'placeholder': 'Type your message...',
-            'class': 'w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-cyan-500',
+            'class': 'outline-cyan-100 w-full px-4 py-2 rounded border border-gray-300 outline-none outline-0 focus:border-cyan-50',
             }),
         }
 

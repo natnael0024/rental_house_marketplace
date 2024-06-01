@@ -1,0 +1,229 @@
+{% extends "../base-admin.html" %}
+ {% block page_title %}/ Home {% endblock page_title %}
+{% block content %}
+<div class="p-4 sm:ml-64">
+   <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+      <div class="grid grid-cols-3 gap-4 mb-4">
+         <div class="flex items-center p-4 justify-between h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div class=" flex flex-col">
+                <span class=" text-gray-500">Total Users:</span>
+                <h3 class=" text-2xl font-bold">{{total_users}}</h3>
+            </div>
+            <div class="">
+                <i class="fas fa-user-friends"></i>
+            </div>
+         </div>
+         <div class="flex items-center justify-between p-4 h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div class=" flex flex-col">
+                <span class=" text-gray-500">New users (This month):</span>
+                <h3 class=" text-2xl font-bold">{{month_new_users}}</h3>
+            </div>
+            <div class="">
+                <i class="fas fa-user-plus    "></i>
+            </div>
+         </div>
+         <div class="flex items-center justify-between p-4 h-24 rounded bg-gray-50 dark:bg-gray-800">
+            <div class=" flex flex-col">
+                <span class=" text-gray-500">Active Users:</span>
+                <h3 class=" text-2xl font-bold">{{active_users}}</h3>
+            </div>
+            <div class="">
+                <i class="fas fa-user-check    "></i>
+            </div>
+         </div>
+      </div>
+
+      <!--line graph -->
+      <div class="flex items-center justify-between h-96 mb-4 rounded bg-gray-50 ">
+        <canvas id="users-chart" width="700" height="500"></canvas>
+        <canvas id="property-chart" width="600" height="500"></canvas>
+      </div>
+      <!--end line graph -->
+
+      <div class="grid grid-cols-2 gap-4 mb-4">
+         <div class="flex items-center justify-between p-4 rounded bg-gray-50 h-28 dark:bg-gray-800">
+            <div class=" flex flex-col">
+                <span class=" text-gray-500">Total Properties Listed:</span>
+                <h3 class=" text-2xl font-bold">{{total_listings_count}}</h3>
+            </div>
+            <div class="">
+               <i class="fas fa-home "></i>
+            </div>
+         </div>
+         <div class="flex items-center justify-between p-4 rounded bg-gray-50 h-28 dark:bg-gray-800">
+            <div class=" flex flex-col">
+                <span class=" text-gray-500">Properties Listed This Month:</span>
+                <h3 class=" text-2xl font-bold">{{month_new_listings}}</h3>
+            </div>
+            <div class="">
+               <i class="fas fa-home    "></i>
+            </div>
+         </div>
+         <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+            <p class="text-2xl text-gray-400 dark:text-gray-500">
+               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+               </svg>
+            </p>
+         </div>
+         <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+            <p class="text-2xl text-gray-400 dark:text-gray-500">
+               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+               </svg>
+            </p>
+         </div>
+      </div>
+      <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+         <p class="text-2xl text-gray-400 dark:text-gray-500">
+            <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+            </svg>
+         </p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+         <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+            <p class="text-2xl text-gray-400 dark:text-gray-500">
+               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+               </svg>
+            </p>
+         </div>
+         <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+            <p class="text-2xl text-gray-400 dark:text-gray-500">
+               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+               </svg>
+            </p>
+         </div>
+         <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+            <p class="text-2xl text-gray-400 dark:text-gray-500">
+               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+               </svg>
+            </p>
+         </div>
+         <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+            <p class="text-2xl text-gray-400 dark:text-gray-500">
+               <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+               </svg>
+            </p>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script>
+   let ctx = document.getElementById("users-chart").getContext("2d");
+   let chart = new Chart(ctx, {
+       type: "line",
+       data: {
+           labels: {{ labels|safe }},
+           datasets: [
+               {
+                   label: "Users",
+                   data: {{ user_data|safe }},
+                   borderColor: 'rgb(75, 192, 192)',
+                   tension: 0.2,
+               }
+           ]
+       },
+       options: {
+         responsive: true,
+         title: {
+            text: "users",
+            display: true
+         },
+         scales: {
+               y: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                        borderDash: [5, 5]
+                    },
+                    ticks: {
+                        display: true,
+                        padding: 5,
+                        color: '#9ca2b7'
+                    }
+                },
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: true,
+                        drawTicks: false,
+                    },
+                    ticks: {
+                        display: true,
+                        color: '#9ca2b7',
+                        padding: 10
+                    }
+                },
+            },
+       }
+   });
+
+   {% comment %} property {% endcomment %}
+   let ctx2 = document.getElementById("property-chart").getContext("2d");
+   let chart2 = new Chart(ctx2, {
+       type: "bar",
+       data: {
+           labels: {{ pr_labels|safe }},
+           datasets: [
+               {
+                   label: "Properties",
+                   data: {{ pr_data|safe }},
+                   backgroundColor: [
+                     'rgba(255, 205, 86)',
+                     'rgba(75, 192, 192)',
+
+                   ]
+                   
+               }
+           ]
+       },
+       options: {
+         responsive: true,
+         title: {
+            text: "properties",
+            display: true
+         },
+         scales: {
+               y: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                        borderDash: [5, 5]
+                    },
+                    ticks: {
+                        display: true,
+                        padding: 5,
+                        color: '#9ca2b7'
+                    }
+                },
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: true,
+                        drawTicks: false,
+                    },
+                    ticks: {
+                        display: true,
+                        color: '#9ca2b7',
+                        padding: 10
+                    }
+                },
+            },
+       }
+   });
+</script>
+
+
+{% endblock content %}
