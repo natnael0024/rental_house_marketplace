@@ -4,14 +4,7 @@
 
     <div class=" relative mt-5 flex flex-col gap-3 ">
         <div class="  flex gap-2 w-full overflow-x-scroll  ">
-            {%if user.id == listing.user.id %}
-            <div>
-                <form action="{% url 'listing_delete' id=listing.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class=" absolute top-2 right-2 text-white bg-red-500 hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">DELETE</button>
-                </form>
-            </div>
-            {%endif%}
+            
             {% for media in listing.medias.all %}
                 <img class=" h-[30rem] w-[140rem] object-cover rounded" src="{{ media.file_path }}" alt="Listing Media">
             {% endfor %}
@@ -31,7 +24,9 @@
                     Send Message
                 </a>
                 {%endif%}
-                {%if user.id == listing.user.id %}
+
+                <div class="flex gap-3">
+                    {%if user.id == listing.user.id %}
                     {%if listing.status %}
                     <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-cyan-600 hover:bg-cyan-500 focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                         Mark as Unavailable
@@ -41,7 +36,15 @@
                         Mark as available
                     </a>
                     {%endif%}
+                    <div class="">
+                        <form action="{% url 'listing_delete' id=listing.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="  text-white bg-red-500 hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">DELETE</button>
+                        </form>
+                    </div>
                 {%endif%}
+                </div>
+
             </div>
             <div class=" flex flex-col justify-between ">
                 <div class=" flex gap-3 items-center">

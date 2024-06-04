@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1','plenty-bikes-judge.loca.lt','yba.onren
 
 # Application definition
 
+APP_NAME = 'የሚከራይ ቤት አለ'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -102,27 +104,27 @@ WSGI_APPLICATION = 'projectrhm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get("DB_ENGINE"),
-        'NAME': os.environ.get("DB_NAME"),
-        'USER':os.environ.get("DB_USER"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),
-        'PORT': os.environ.get("DB_PORT"),
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': os.environ.get("DB_ENGINE"),
-#         'NAME': 'rhmdb',
-#         'USER':'postgres',
-#         'PASSWORD': 'nat@postgress',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
+#         'NAME': os.environ.get("DB_NAME"),
+#         'USER':os.environ.get("DB_USER"),
+#         'PASSWORD': os.environ.get("DB_PASSWORD"),
+#         'HOST': os.environ.get("DB_HOST"),
+#         'PORT': os.environ.get("DB_PORT"),
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': os.environ.get("DB_ENGINE"),
+        'NAME': 'rhmdb',
+        'USER':'postgres',
+        'PASSWORD': 'nat@postgress',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
 
 
 

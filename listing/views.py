@@ -5,6 +5,7 @@ from django.core.files.storage import default_storage
 from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
+from admindashboard.models import Ads
 import uuid
 import os
 from django.core.paginator import Paginator
@@ -21,14 +22,14 @@ def index(request):
     city = request.GET.get('city')
     subcity = request.GET.get('subcity')
     my = request.GET.get('my')
-
+    ads = Ads.objects.filter(position='main', status=True).order_by('created_at')
+    
     if price:
         base_query = base_query.filter(price__lte=price)
     if city:
         base_query = base_query.filter(city__icontains=city)
     if subcity:
         base_query = base_query.filter(sub_city__icontains=subcity)
-
 
     listings = base_query
 
@@ -41,14 +42,22 @@ def index(request):
     context = {
         "listings":page_obj,
         "page_obj":page_obj,
-        "cities": ['Addis Ababa', 'Mekelle','Adama','Debrezeit'],
-        "subcities":['Arada','Kirkos','Bole','Addis Ketema'],
+        "cities": ['Addis Ababa', 'Mekelle','Adama','Debrezeit','Bahirdar','Harer','Gambela','Awash'],
+        "subcities":['Arada','Addis Ketema','Akaki Kality','Bole','Gulele','Kolfe','Kirkos','Lemi Kura','Lideta','Nefas Silk','Yeka'],
         "price_ranges":{
              '5000':'<=5000',
              '10000':'<=10000',
-             '20000': '<=20000'
+             '20000': '<=20000',
+             '30000': '<=30000',
+             '40000': '<=40000',
+             '50000': '<=50000',
+             '60000': '<=60000',
+             '80000': '<=80000',
+             '120000': '<=120000',
+
         },
-        "user":request.user
+        "user":request.user,
+        "ads":ads
     }
 
     return render(request, 'listing/index.html', context)

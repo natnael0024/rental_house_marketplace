@@ -1,6 +1,9 @@
 from django.db import models
 from users.models import CustomUser
 
+# class City(models.Model):
+
+
 class Listing(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name='listings')
     title = models.CharField( max_length=50)
