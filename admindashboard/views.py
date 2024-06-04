@@ -118,10 +118,10 @@ def create_add(request):
             ad.user = request.user  # Assuming you have a user associated with the request
             file_name = f'ad_{uuid.uuid4()}{os.path.splitext(file.name)[1]}'
             ad.media_type = file.content_type
-            upload_response = supabase.storage.from_(f"{bucket_name}/ads").upload(file_name, file.read(), file_options={"content-type": file.content_type})
+            upload_response = supabase.storage.from_(bucket_name).upload(file_name, file.read(), file_options={"content-type": file.content_type})
             if upload_response.status_code == 200:
                 print('Upload successful:', upload_response)
-                public_url = supabase.storage.from_(f"{bucket_name}/ads").get_public_url(file_name)
+                public_url = supabase.storage.from_(bucket_name).get_public_url(file_name)
                 print(public_url)
                 ad.file_path = public_url
                 ad.save()
@@ -139,7 +139,7 @@ def create_add(request):
 
 @login_required
 def set_ad_status(request, id):
-    ad = Ads.objects.filter(id=id)
+    ad = Ads.objects.filter(id=id).first()
     if ad:
         ad.status = not ad.status
         ad.save()
