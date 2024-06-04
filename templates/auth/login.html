@@ -8,11 +8,12 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
+    <img src="https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg?t=st=1717491245~exp=1717494845~hmac=9aded1dc6da8585e558487087bcf1bacee1f05b6a40f02d85ddd2f0396438576&w=1060" alt="Description" class="w-full top-0 h-full  absolute -z-50">
+    <div class="lg:max-w-[30vw] mx-auto mt-10">
         {% if error %}
-        <p class=" mt-3 text-center text-red-500">{{ error }}</p>
+        <p class=" mt-3 text-center ">{{ error }}</p>
         {% endif %}
-        <form method='POST' enctype="multipart/form-data" class=" lg:max-w-[30vw]  mx-auto border border-red-300 mt-10">
+        <form method='POST' enctype="multipart/form-data" class=" ">
             {% csrf_token %}
             <h1 class=" text-2xl text-cyan-950 font-bold text-center">Login</h1>
             <div class="mb-4">
@@ -23,9 +24,10 @@
                 <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.password.label_tag }}</div>
                 <div>{{ form.password }}</div>
             </div>
-            <button class="text-white bg-cyan-950 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-cyan-950 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button class="text-white bg-cyan-700 hover:bg-cyan-600 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-cyan-700 dark:hover:bg-cyan-600 dark:focus:ring-cyan-800">
             Login</button>
         </form>
+        <a href="{% url 'register' %}" class=" mt-4 ">Don't have an account? <span class=" text-cyan-300">SIGNUP</span></a>
     </div>
 </body>
 </html>
