@@ -2,16 +2,33 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from users.models import CustomUser
 from listing.models import Listing
+from .forms import AdsForm
+from .models import Ads
 from django.utils import timezone
 from django.db.models import Count, Max
 from datetime import datetime, timedelta
 from django.db.models.functions import TruncMonth, TruncDay, TruncDate
+import calendar
+from django.contrib import messages
+from supabase import create_client, Client
+import os, uuid
+from datetime import timedelta
+from django.utils import timezone
 
 
+
+
+supabase: Client = create_client(os.environ.get('SUPABASE_URL'), os.environ.get('SUPABASE_SEC'))
+bucket_name = os.environ.get('SUPABASE_BUCKET')
+
+@login_required
 def dashboard(request):
     # if not request.user.is_admin:
     #     return redirect('listings')
-    today = timezone.now().date()
+    # today = timezone.now().date()
+    today = datetime.now()
+    current_month = today.month
+
     total_users = CustomUser.objects.count()
     today_new_users = CustomUser.objects.filter(created_at=today).count()
     month_new_users = CustomUser.objects.filter(created_at__year=today.year, created_at__month=today.month).count()
@@ -19,7 +36,7 @@ def dashboard(request):
 
     start_of_week = datetime.now() - timedelta(days=datetime.now().weekday())
 
-    # Count the number of active users who logged in at least once in the last week
+    #  number of active users who logged in at least once in the last week
     active_users = CustomUser.objects.filter(is_active=True).annotate(max_login_date=Max('last_login')).filter(max_login_date__gte=start_of_week).count()
 
     # users chart
@@ -27,34 +44,29 @@ def dashboard(request):
     labels = [user_count['month'].strftime('%b') for user_count in user_counts]
     data = [user_count['count'] for user_count in user_counts]
 
+    start_of_year = datetime(datetime.now().year, 1, 1)
+    # end_of_year = datetime(datetime.now().year, 12, 31)
+
+    user_counts = CustomUser.objects.filter(created_at__date__range=[start_of_year, today]).annotate(month=TruncMonth('created_at')).values('month').annotate(count=Count('id')).order_by('month')
+    # print(user_counts)
+    count_dict = {user_count['month'].date(): user_count['count'] for user_count in user_counts}
+    print(count_dict)
+    user_data = [count_dict.get(start_of_year.replace(month=i+1, day=1).date(), 0) for i in range(12)]
+    user_labels = [calendar.month_abbr[i+1] for i in range(current_month)]
+
+    # start_of_year = datetime.now() - timedelta(months=datetime.now().month())
+
     # listings chart
-    # listing_counts = Listing.objects.annotate(day=TruncDay('created_at')).values('day').annotate(count=Count('id')).order_by('day')
-    # pr_labels = [listing_count['day'].strftime('%a') for listing_count in listing_counts]
-    # pr_data = [listing_count['count'] for listing_count in listing_counts]
-    # pr_labels = ['Mon','Tue','Wed','Thur','Fri','Sat','Sun']
-
     start_of_week = datetime.now() - timedelta(days=datetime.now().weekday())
-
-    # Get the end of the current week
     end_of_week = start_of_week + timedelta(days=6)
-
-    # Create a list of all days of the week
     all_days = [start_of_week + timedelta(days=i) for i in range(7)]
-
-    # Get the listing counts for each day of the week
     listing_counts = Listing.objects.filter(created_at__date__range=[start_of_week, end_of_week]).annotate(day=TruncDay('created_at')).values('day').annotate(count=Count('id')).order_by('day')
-
-    # Create a dictionary to map the counts to the corresponding days
     count_dict = {listing_count['day'].date(): listing_count['count'] for listing_count in listing_counts}
 
-    # Create the data and labels lists
-    pr_data = [count_dict.get(day.date(), 0) for day in all_days]
-    pr_labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    # listing_counts = Listing.objects.annotate(day=TruncDate('created_at')).values('day').annotate(count=Count('id')).order_by('day')
 
-    # pr_labels = [listing_count['day'].strftime('%Y-%m-%d') for listing_count in listing_counts]
-    # pr_data = [listing_count['count'] for listing_count in listing_counts]
-    
+    pr_data = [count_dict.get(day.date(), 0) for day in all_days]
+    pr_labels = [calendar.day_abbr[i] for i in range(7)]
+
     total_listings_count = Listing.objects.count()
     month_new_listings = Listing.objects.filter(created_at__year=today.year, created_at__month=today.month).count()
 
@@ -64,11 +76,73 @@ def dashboard(request):
         'month_new_users':month_new_users,
         'year_new_users':year_new_users,
         'active_users':active_users,
-        'labels': labels,
-        'user_data': data,
-        'pr_labels':pr_labels,
+        'labels': user_labels,
+        'user_data': user_data,
+        'pr_labels': pr_labels,
         'pr_data':pr_data,
         'total_listings_count':total_listings_count,
         'month_new_listings':month_new_listings
     }
     return render(request,'admin/pages/dashboard.html', context)
+
+@login_required
+def get_users(request):
+    users = CustomUser.objects.all().order_by('-created_at')
+    context = {
+        'users':users
+    }
+    return render(request,'admin/pages/users.html', context)
+
+@login_required
+def ban_unban_user(request, id):
+    user = CustomUser.objects.filter(id=id).first()
+    if user:
+        user.is_active = not user.is_active
+        user.save()
+        messages.info(request, "success")
+    else:
+        messages.info(request, "user not found")
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def create_add(request):
+    if request.method == 'POST':
+        form = AdsForm(request.POST)
+        if form.is_valid():
+            ad = form.save(commit=False)
+            file = request.FILES.get('file')
+            print('FILE ',file)
+            expire_date = timezone.now().date() + timedelta(days=int(form.instance.duration))
+            ad.expire_date = expire_date
+            ad.user = request.user  # Assuming you have a user associated with the request
+            file_name = f'ad_{uuid.uuid4()}{os.path.splitext(file.name)[1]}'
+            ad.media_type = file.content_type
+            upload_response = supabase.storage.from_(f"{bucket_name}/ads").upload(file_name, file.read(), file_options={"content-type": file.content_type})
+            if upload_response.status_code == 200:
+                print('Upload successful:', upload_response)
+                public_url = supabase.storage.from_(f"{bucket_name}/ads").get_public_url(file_name)
+                print(public_url)
+                ad.file_path = public_url
+                ad.save()
+                messages.info(request, "ad posted")
+            else:
+                print('Upload failed:', upload_response['error'])
+
+    form = AdsForm()
+    ads = Ads.objects.all()
+    context = {
+        'ads':ads,
+        'form':form
+    }
+    return render(request,'admin/pages/ads.html',context )
+
+@login_required
+def set_ad_status(request, id):
+    ad = Ads.objects.filter(id=id)
+    if ad:
+        ad.status = not ad.status
+        ad.save()
+
+    return redirect('admin-ads')
+    

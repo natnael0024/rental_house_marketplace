@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import CustomUser
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -55,6 +55,8 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
+    if request.user.is_staff:
+        return redirect('login')
     return redirect('listings')
 
 @login_required 

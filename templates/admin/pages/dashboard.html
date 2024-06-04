@@ -1,7 +1,13 @@
 {% extends "../base-admin.html" %}
  {% block page_title %}/ Home {% endblock page_title %}
+
+ {% block overlay %}
+  <div class=" min-h-96 w-full bg-cyan-100 absolute -z-10 top-0 "></div>
+{% endblock overlay %}
+
 {% block content %}
-<div class="p-4 sm:ml-64">
+
+<div class="p-4 sm:ml-64 z-50">
    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
       <div class="grid grid-cols-3 gap-4 mb-4">
          <div class="flex items-center p-4 justify-between h-24 rounded bg-gray-50 dark:bg-gray-800">
@@ -15,7 +21,7 @@
          </div>
          <div class="flex items-center justify-between p-4 h-24 rounded bg-gray-50 dark:bg-gray-800">
             <div class=" flex flex-col">
-                <span class=" text-gray-500">New users (This month):</span>
+                <span class=" text-gray-500">New users:</span>
                 <h3 class=" text-2xl font-bold">{{month_new_users}}</h3>
             </div>
             <div class="">
@@ -33,12 +39,18 @@
          </div>
       </div>
 
-      <!--line graph -->
-      <div class="flex items-center justify-between h-96 mb-4 rounded bg-gray-50 ">
-        <canvas id="users-chart" width="700" height="500"></canvas>
-        <canvas id="property-chart" width="600" height="500"></canvas>
+      <!-- graphs -->
+      <div class="flex flex-col sm:flex-row items-center justify-between">
+         <div class="flex flex-col sm:flex-row items-center justify-between h-96 mb-4 rounded bg-gray-50 ">
+            <canvas id="users-chart" width="729" height="500"></canvas>
+            {% comment %} <canvas id="property-chart" width="600" height="500"></canvas> {% endcomment %}
+          </div>
+          <div class="flex flex-col sm:flex-row items-center justify-between h-96 mb-4 rounded bg-gray-50 ">
+            {% comment %} <canvas id="users-chart" width="700" height="500"></canvas> {% endcomment %}
+            <canvas id="property-chart" width="729" height="500"></canvas>
+          </div>
       </div>
-      <!--end line graph -->
+      <!--end  graphs -->
 
       <div class="grid grid-cols-2 gap-4 mb-4">
          <div class="flex items-center justify-between p-4 rounded bg-gray-50 h-28 dark:bg-gray-800">
@@ -52,7 +64,7 @@
          </div>
          <div class="flex items-center justify-between p-4 rounded bg-gray-50 h-28 dark:bg-gray-800">
             <div class=" flex flex-col">
-                <span class=" text-gray-500">Properties Listed This Month:</span>
+                <span class=" text-gray-500">Listed This Month:</span>
                 <h3 class=" text-2xl font-bold">{{month_new_listings}}</h3>
             </div>
             <div class="">
@@ -178,9 +190,7 @@
                    label: "Properties",
                    data: {{ pr_data|safe }},
                    backgroundColor: [
-                     'rgba(255, 205, 86)',
-                     'rgba(75, 192, 192)',
-
+                     '#27cbe4',
                    ]
                    
                }
