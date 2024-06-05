@@ -1,8 +1,19 @@
 from django.db import models
 from users.models import CustomUser
 
-# class City(models.Model):
 
+class City(models.Model):
+    name = models.CharField(max_length=50)
+    class Meta:
+        db_table = 'cities'
+
+    def __str__(self):
+        return self.name
+
+class SubCity(models.Model):
+    name = models.CharField(max_length=50)
+    class Meta:
+        db_table = 'subcities'
 
 class Listing(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name='listings')
@@ -13,8 +24,8 @@ class Listing(models.Model):
     bedrooms = models.IntegerField(null=True, blank=True)
     bathrooms = models.IntegerField(null=True, blank=True)
     square_metre = models.DecimalField(max_digits=10, decimal_places=2,null=True, blank=True)
-    city = models.CharField( max_length=100, null=True, blank=True)
-    sub_city = models.CharField( max_length=100, null=True, blank=True)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
+    sub_city = models.ForeignKey(SubCity, on_delete=models.SET_NULL, null=True, blank=True)
     area = models.CharField( max_length=100, null=True, blank=True)
     phone_number1 = models.CharField(max_length=20)
     phone_number2 = models.CharField(max_length=20, null=True, blank=True)

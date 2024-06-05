@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404, redirect
-from .models import Listing, ListingMedia
-from .forms import ListingForm
+from .models import Listing, ListingMedia, City, SubCity
+from .forms import ListingForm, CitySelectForm, SubCitySelectForm
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.contrib import messages
@@ -21,17 +21,19 @@ def index(request):
     price = request.GET.get('price')
     city = request.GET.get('city')
     subcity = request.GET.get('subcity')
-    my = request.GET.get('my')
     ads = Ads.objects.filter(position='main', status=True).order_by('created_at')
     
     if price:
         base_query = base_query.filter(price__lte=price)
     if city:
-        base_query = base_query.filter(city__icontains=city)
+        base_query = base_query.filter(city__name=city)
     if subcity:
-        base_query = base_query.filter(sub_city__icontains=subcity)
+        base_query = base_query.filter(sub_city__name=subcity)
 
     listings = base_query
+
+    cities = City.objects.all()
+    subcities = SubCity.objects.all()
 
     paginator = Paginator(listings, 8)  # Show 10 orders per page
     page_number = request.GET.get('page')
@@ -42,8 +44,8 @@ def index(request):
     context = {
         "listings":page_obj,
         "page_obj":page_obj,
-        "cities": ['Addis Ababa', 'Mekelle','Adama','Debrezeit','Bahirdar','Harer','Gambela','Awash'],
-        "subcities":['Arada','Addis Ketema','Akaki Kality','Bole','Gulele','Kolfe','Kirkos','Lemi Kura','Lideta','Nefas Silk','Yeka'],
+        "cities":cities,
+        "subcities":subcities,
         "price_ranges":{
              '5000':'<=5000',
              '10000':'<=10000',
@@ -54,7 +56,6 @@ def index(request):
              '60000': '<=60000',
              '80000': '<=80000',
              '120000': '<=120000',
-
         },
         "user":request.user,
         "ads":ads

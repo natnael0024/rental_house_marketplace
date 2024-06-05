@@ -27,12 +27,12 @@
       <span class="text-sm">{{ listing.area }}, {{ listing.sub_city }}, {{ listing.city }}</span>
     </div>
     <div class="flex">
-      <span class="">🏛 {{ listing.rooms }} rooms</span>
-      <span class="">🛏 {{ listing.bedrooms }} bedrooms</span>
-      <span class="">🛁 {{ listing.bathrooms }} bathrooms</span>
+      <span class=""> <i class="fa fa-home" aria-hidden="true"></i> {{ listing.rooms }} rooms</span>
+      <span class=""> <i class="fa fa-bed" aria-hidden="true"></i> {{ listing.bedrooms }} bedrooms</span>
+      <span class=""> <i class="fa fa-shower" aria-hidden="true"></i> {{ listing.bathrooms }} bathrooms</span>
     </div>
     <div class="flex items-end justify-between">
-      <span class="text-2xl font-bold text-gray-900 ">${{ listing.price }}<span class="text-sm font-thin">/month</span></span>
+      <span class="text-2xl font-bold text-gray-900 ">ETB {{ listing.price }}<span class="text-sm font-thin">/month</span></span>
     </div>
   </div>
 </div>
