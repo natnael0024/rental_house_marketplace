@@ -100,7 +100,6 @@ def get_users(request):
     return render(request,'admin/pages/users.html', context)
 
 @staff_member_required
-
 def ban_unban_user(request, id):
     user = CustomUser.objects.filter(id=id).first()
     if user:
@@ -155,7 +154,7 @@ def set_ad_status(request, id):
 
 @staff_member_required
 def get_cities(request):
-    cities = City.objects.all()
+    cities = City.objects.all().order_by('name')
     return render(request,'admin/pages/cities.html',{'cities':cities})  
 
 @staff_member_required
@@ -166,7 +165,7 @@ def add_city(request):
 
 @staff_member_required
 def get_subcitiies(request):
-    subcities = SubCity.objects.all()
+    subcities = SubCity.objects.all().order_by('name')
     return render(request,'admin/pages/subcities.html',{'subcities':subcities})  
 
 @staff_member_required
