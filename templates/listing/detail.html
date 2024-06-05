@@ -40,16 +40,20 @@
                             Mark as available
                         </a>
                         {%endif%}
+                        <a href="{% url 'listing_update' id=listing.id %}" class="text-white bg-cyan-600 hover:bg-cyan-500 focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                            <i class="fas fa-edit    "></i>
+                            Edit
+                        </a>
                         <div class="">
                             <form action="{% url 'listing_delete' id=listing.id %}" method="post">
                                 {% csrf_token %}
-                               
                                 <button type="submit" class="  text-white bg-red-500 hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                     DELETE
                                 </button>
                             </form>
                         </div>
+                        
                     {%endif%}
                 </div>
                 </div>

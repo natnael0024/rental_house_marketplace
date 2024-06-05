@@ -3,10 +3,16 @@
 {% block content%}
 
 <div class=" relative mt-2">
-  <div class="carousel h-[20rem] w-full flex overflow-x-scroll no-scrollbar rounded-md">
-    <img class=" h-full min-w-full object-cover" src="https://img.freepik.com/free-photo/location-symbol-with-building_23-2150169880.jpg?w=1060&t=st=1716989795~exp=1716990395~hmac=77a5be0784d2a7e1f9b0e96e19ec3c10f70b3337e2db7b42eb7454ff8f76c8cf" alt="">
-    <img class=" h-full min-w-full object-cover" src="https://img.freepik.com/premium-photo/location-map-pin-gps-mobile-app-finding-navigation-application-3d-direction-icon-smartphone-navigator-technology-global-positioning-system-address-phone-background-with-delivery-marker_79161-2133.jpg?w=1060" alt="">
-    <img class=" h-full min-w-full object-cover" src="https://img.freepik.com/free-photo/charming-yellow-house-with-wooden-windows-green-grassy-garden_181624-8074.jpg?t=st=1716990016~exp=1716993616~hmac=d619b113d9bdb78ba14e6917397dbd60fd041100bf896520379de788f90e6b92&w=1060" alt="">
+  <div class="carousel h-[10rem] overflow-y-hidden sm:h-[20rem] w-full flex overflow-x-scroll no-scrollbar rounded-md">
+    {% for ad in ads %}
+    {%if ad.url %}
+      <a href="{{ad.url}}" class=" w-full">
+        <img class=" h-full min-w-full object-cover" src="{{ad.file_path}}" alt="">
+      </a>
+    {%else%}
+      <img class=" h-full min-w-full object-cover" src="{{ad.file_path}}" alt="">
+    {%endif%}
+    {% endfor %}
   </div>
   <div class="carousel-dots absolute bottom-5 left-1/2 flex justify-center mt-4 ">
     <div class="carousel-dot active:bg-cyan-300 w-3 h-3 bg-gray-400 rounded-full mx-1"></div>
