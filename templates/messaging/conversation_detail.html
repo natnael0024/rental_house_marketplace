@@ -6,7 +6,7 @@
     <div>
         {% for participant in conversation.participants.all %}
             {% if participant != request.user %}
-            <h3 class="text-3xl font-bold mb-4">Conversation with {{ participant.first_name }} </h3>
+            <h3 class="text-xl font-semibold mb-4">Conversation with {{ participant.first_name }} </h3>
             {%endif%}
         {%endfor%}
     </div>
@@ -28,9 +28,9 @@
                     <span> {{conversation.listing.area}}, {{conversation.listing.sub_city}}, {{conversation.listing.city}}</span>
                 </div>
                 <div class=" flex gap-10">
-                    <span class="   rounded">🏛  {{conversation.listing.rooms}} room(s)</span>
-                    <span class="  rounded ">🛏 {{conversation.listing.bedrooms}} bedroom(s)</span>
-                    <span class="  rounded">🛁 {{conversation.listing.bathrooms}} bathroom(s)</span>
+                    <span class=""> <i class="fa fa-home" aria-hidden="true"></i> {{ listing.rooms }} rooms</span>
+                    <span class=""> <i class="fa fa-bed" aria-hidden="true"></i> {{ listing.bedrooms }} bedrooms</span>
+                    <span class=""> <i class="fa fa-shower" aria-hidden="true"></i> {{ listing.bathrooms }} bathrooms</span>
                 </div>
                 <div>
                     <span class=" font-semibold">📱 {{conversation.listing.phone_number1}}, {{conversation.listing.phone_number2}}</span>

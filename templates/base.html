@@ -28,6 +28,12 @@
                 Post
             </a>
             {%if user.is_authenticated%}
+                <a href="{% url 'conversation_list' %}" class=" sm:hidden">
+                    <i class="fa fa-envelope" aria-hidden="true"></i> 
+                </a>
+            {%endif%}
+            
+            {%if user.is_authenticated%}
                 <div class=" ">
                     <div class="relative inline-block text-left">
                         <div>
@@ -38,7 +44,6 @@
                             </svg>
                           </button>
                         </div>
-                      
                         <div class="origin-top-right-mob absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" style="display: none;">
                           <div class="py-1" role="none">
                             <a href=" {% url 'my_listings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-0">My Listings</a>
@@ -54,6 +59,8 @@
                 </a>
                 {%endif%}
         </div>
+
+        <!-- desktop -->
         <nav class="bg-white py-1 w-full  flex sm:flex-row flex-col items-center justify-between sticky top-0 z-50">
             <div class=" hidden sm:flex items-center gap-1 text-3xl">
               <a href="{% url 'listings' %}" class="flex items-center gap-1 text-3xl">
@@ -103,11 +110,15 @@
                 </form>
             </div>
             <div class=" flex  items-center gap-3">
+                {%if user.is_authenticated%}
+                <a href="{% url 'conversation_list' %}" class=" hidden sm:block">
+                    <i class="fa fa-envelope" aria-hidden="true"></i> 
+                </a>
+                 {%endif%}
                 <a  href="{% url 'listing_create' %}" class=" hidden sm:block  border bg-cyan-600 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-md">
                     Post
                 </a>
                 {%if user.is_authenticated%}
-                
                 <div class=" hidden sm:block">
                     <div class="relative inline-block text-left">
                         <div>
@@ -240,6 +251,8 @@
             var city = $('#city').val();
             var subcity = $('#subcity').val();
             var price = $('#price').val();
+
+            console.log(city)
             
             var url = '{% url "listings" %}?city=' + city + '&subcity=' + subcity + '&price=' + price;
             window.location.href = url;

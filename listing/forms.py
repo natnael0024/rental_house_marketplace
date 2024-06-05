@@ -1,5 +1,5 @@
 from django import forms
-from .models import Listing, ListingMedia
+from .models import Listing, ListingMedia, City, SubCity
 
 
 class ListingForm(forms.ModelForm):
@@ -36,11 +36,11 @@ class ListingForm(forms.ModelForm):
             'placeholder': '145',
             'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-[25rem] p-2.5 ',
             }),
-            'city': forms.TextInput(attrs={
+            'city': forms.Select(attrs={
             'placeholder': 'Addis Ababa',
             'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-[25rem] p-2.5 ',
             }),
-            'sub_city': forms.TextInput(attrs={
+            'sub_city': forms.Select(attrs={
             'placeholder': 'Kirkos',
             'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-[25rem] p-2.5 ',
             }),
@@ -56,8 +56,13 @@ class ListingForm(forms.ModelForm):
             'placeholder': '094321___',
             'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-[25rem] p-2.5 ',
             }),
-            
-            
-            
-
         }
+
+class CitySelectForm(forms.Form):
+    city = forms.ModelChoiceField(queryset=City.objects.all(), empty_label="Select a city")
+
+class SubCitySelectForm(forms.Form):
+    sub_city = forms.ModelChoiceField(queryset=SubCity.objects.none())
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['sub_city'].queryset = SubCity.objects.filter(city_id=self.initial.get('city'))

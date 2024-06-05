@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from users.models import CustomUser
-from listing.models import Listing
+from listing.models import Listing, City, SubCity
 from .forms import AdsForm
 from .models import Ads
 from django.utils import timezone
@@ -14,14 +15,14 @@ from supabase import create_client, Client
 import os, uuid
 from datetime import timedelta
 from django.utils import timezone
-
-
+from django.core.paginator import Paginator
 
 
 supabase: Client = create_client(os.environ.get('SUPABASE_URL'), os.environ.get('SUPABASE_SEC'))
 bucket_name = os.environ.get('SUPABASE_BUCKET')
 
-@login_required
+
+@staff_member_required
 def dashboard(request):
     # if not request.user.is_admin:
     #     return redirect('listings')
@@ -85,15 +86,21 @@ def dashboard(request):
     }
     return render(request,'admin/pages/dashboard.html', context)
 
-@login_required
+@staff_member_required
 def get_users(request):
     users = CustomUser.objects.all().order_by('-created_at')
+    
+    paginator = Paginator(users, 4)  # Show 10 orders per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'users':users
+        'users':page_obj,
+        'page_obj': page_obj ,
     }
     return render(request,'admin/pages/users.html', context)
 
-@login_required
+@staff_member_required
+
 def ban_unban_user(request, id):
     user = CustomUser.objects.filter(id=id).first()
     if user:
@@ -105,7 +112,7 @@ def ban_unban_user(request, id):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-@login_required
+@staff_member_required
 def create_add(request):
     if request.method == 'POST':
         form = AdsForm(request.POST)
@@ -137,7 +144,7 @@ def create_add(request):
     }
     return render(request,'admin/pages/ads.html',context )
 
-@login_required
+@staff_member_required
 def set_ad_status(request, id):
     ad = Ads.objects.filter(id=id).first()
     if ad:
@@ -145,4 +152,25 @@ def set_ad_status(request, id):
         ad.save()
 
     return redirect('admin-ads')
-    
+
+@staff_member_required
+def get_cities(request):
+    cities = City.objects.all()
+    return render(request,'admin/pages/cities.html',{'cities':cities})  
+
+@staff_member_required
+def add_city(request):
+    name = request.POST.get('name')
+    City.objects.create(name=name)
+    return redirect('admin-dashboard')
+
+@staff_member_required
+def get_subcitiies(request):
+    subcities = SubCity.objects.all()
+    return render(request,'admin/pages/subcities.html',{'subcities':subcities})  
+
+@staff_member_required
+def add_subcity(request):
+    name = request.POST.get('name')
+    SubCity.objects.create(name=name)
+    return redirect('admin-dashboard')
