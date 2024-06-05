@@ -41,6 +41,8 @@ def login_view(request):
         if user is not None:
             # Log the user in
             login(request, user)
+            if request.user.is_admin:
+                return redirect('admin-dashboard')
             return redirect('listings')
         else:
             # Invalid credentials
