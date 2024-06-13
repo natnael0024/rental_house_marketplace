@@ -5,6 +5,7 @@ from users.models import CustomUser
 from listing.models import Listing, City, SubCity
 from .forms import AdsForm
 from .models import Ads
+from comment.models import Comment
 from django.utils import timezone
 from django.db.models import Count, Max
 from datetime import datetime, timedelta
@@ -173,3 +174,16 @@ def add_subcity(request):
     name = request.POST.get('name')
     SubCity.objects.create(name=name)
     return redirect('admin-dashboard')
+
+@staff_member_required
+def get_comments(request):
+    comments = Comment.objects.all().order_by('-created_at')
+
+    paginator = Paginator(comments, 5)  # Show 10 orders per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'comments':page_obj,
+        'page_obj': page_obj ,
+    }
+    return render(request,'admin/pages/comments.html',context)

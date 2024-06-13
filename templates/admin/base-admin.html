@@ -20,12 +20,12 @@
    {% block overlay%}{% endblock overlay%}
 
    {% if messages %}
-   <div class=" absolute top-5 right-2 bg-white rounded p-4 max-w-[7rem]">
+    <div class=" absolute top-5 right-2 bg-white rounded p-4 max-w-[7rem]">
     {% for message in messages %}
     <span class=" text-xl text-gray-700 font-weight-bolder" >{{ message }}</span>
     {% endfor %}
-    {%endif%}
-   </div>
+    </div>
+   {%endif%}
 
     <!-- Sidebar -->
     <div class=" flex justify-between  top-2 left-3 fixed z-50">
@@ -82,6 +82,12 @@
                   <a href="{% url 'admin-subcities' %}" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
                      <i class="fa fa-university" aria-hidden="true"></i>
                      <span class="flex-1 ms-3 whitespace-nowrap">SubCities</span>
+                  </a>
+               </li>
+               <li>
+                  <a href="{% url 'admin-comments' %}" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+                     <i class="fa fa-comment" aria-hidden="true"></i>
+                     <span class="flex-1 ms-3 whitespace-nowrap">User Comments</span>
                   </a>
                </li>
                <li>

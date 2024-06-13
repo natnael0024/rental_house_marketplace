@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'fontawesomefree',
     'admindashboard',
+    'comment'
 ]
 
 MIDDLEWARE = [

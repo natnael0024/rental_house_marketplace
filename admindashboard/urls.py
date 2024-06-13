@@ -12,4 +12,5 @@ urlpatterns = [
     path('cities',  views.get_cities,  name='admin-cities'),
     path('subcities/add',  views.add_subcity,  name='admin-add-subcity'),
     path('subcities',  views.get_subcitiies,  name='admin-subcities'),
+    path('comments',  views.get_comments,  name='admin-comments'),
 ]

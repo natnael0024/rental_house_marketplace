@@ -1,5 +1,6 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from .models import Listing, ListingMedia, City, SubCity
+from comment.forms import CommentForm
 from .forms import ListingForm, CitySelectForm, SubCitySelectForm
 from django.core.files.storage import default_storage
 from django.conf import settings
@@ -40,7 +41,9 @@ def index(request):
     page_obj = paginator.get_page(page_number)
 
     if listings.count() < 1:
-        messages.info(request, "No House Found")
+        messages.info(request, "No House Found 😔")
+
+    comment_form = CommentForm()
     context = {
         "listings":page_obj,
         "page_obj":page_obj,
@@ -58,7 +61,8 @@ def index(request):
              '120000': '<=120000',
         },
         "user":request.user,
-        "ads":ads
+        "ads":ads,
+        "comment_form":comment_form
     }
 
     return render(request, 'listing/index.html', context)
@@ -66,7 +70,11 @@ def index(request):
 @login_required
 def my_listings(request):
     listings = Listing.objects.filter(user_id=request.user.id).order_by('-created_at') 
-    print('REQUEST USER ID ',request.user.id)
+
+    ads = Ads.objects.filter(position='main', status=True).order_by('created_at')
+    cities = City.objects.all()
+    subcities = SubCity.objects.all()
+
     paginator = Paginator(listings, 8)  # Show 10 orders per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)  
@@ -76,14 +84,21 @@ def my_listings(request):
     context = {
         "listings":page_obj,
         "page_obj":page_obj,
-        "cities": ['Addis Ababa', 'Mekelle','Adama','Debrezeit'],
-        "subcities":['Arada','Kirkos','Bole','Addis Ketema'],
+        "cities": cities,
+        "subcities":subcities,
         "price_ranges":{
              '5000':'<=5000',
              '10000':'<=10000',
-             '20000': '<=20000'
+             '20000': '<=20000',
+             '30000': '<=30000',
+             '40000': '<=40000',
+             '50000': '<=50000',
+             '60000': '<=60000',
+             '80000': '<=80000',
+             '120000': '<=120000',
         },
-        "user":request.user
+        "user":request.user,
+        "ads":ads
     }
     return render(request,'listing/my_listings.html', context)
 
