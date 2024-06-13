@@ -1,5 +1,6 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from .models import Listing, ListingMedia, City, SubCity
+from comment.forms import CommentForm
 from .forms import ListingForm, CitySelectForm, SubCitySelectForm
 from django.core.files.storage import default_storage
 from django.conf import settings
@@ -40,7 +41,9 @@ def index(request):
     page_obj = paginator.get_page(page_number)
 
     if listings.count() < 1:
-        messages.info(request, "No House Found")
+        messages.info(request, "No House Found 😔")
+
+    comment_form = CommentForm()
     context = {
         "listings":page_obj,
         "page_obj":page_obj,
@@ -58,7 +61,8 @@ def index(request):
              '120000': '<=120000',
         },
         "user":request.user,
-        "ads":ads
+        "ads":ads,
+        "comment_form":comment_form
     }
 
     return render(request, 'listing/index.html', context)
