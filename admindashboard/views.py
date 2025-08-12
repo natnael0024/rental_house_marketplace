@@ -88,10 +88,32 @@ def dashboard(request):
     return render(request,'admin/pages/dashboard.html', context)
 
 @staff_member_required
+def get_listings(request):
+    listings = Listing.objects.all().order_by('-created_at')
+    
+    paginator = Paginator(listings, 10)  # Show 10 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'listings':page_obj,
+        'page_obj': page_obj ,
+    }
+    return render(request,'admin/pages/listings.html', context)
+
+@staff_member_required
+def set_listing_status(request, id):
+    listing = Listing.objects.filter(id=id).first()
+    if listing:
+        listing.admin_status = not listing.admin_status
+        listing.save()
+
+    return redirect('admin-listings')
+
+@staff_member_required
 def get_users(request):
     users = CustomUser.objects.all().order_by('-created_at')
     
-    paginator = Paginator(users, 4)  # Show 10 orders per page
+    paginator = Paginator(users, 4)  # Show 10  per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {

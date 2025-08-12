@@ -33,6 +33,7 @@ class Listing(models.Model):
     phone_number1 = models.CharField(max_length=20)
     phone_number2 = models.CharField(max_length=20, null=True, blank=True)
     status = models.BooleanField(default=True)
+    admin_status = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
