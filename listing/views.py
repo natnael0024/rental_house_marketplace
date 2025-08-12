@@ -18,7 +18,7 @@ supabase: Client = create_client(os.environ.get('SUPABASE_URL'), os.environ.get(
 bucket_name = os.environ.get('SUPABASE_BUCKET')
 
 def index(request):
-    base_query = Listing.objects.prefetch_related('medias').all().order_by('-created_at')
+    base_query = Listing.objects.prefetch_related('medias').filter(admin_status=True).order_by('-created_at')
     price = request.GET.get('price')
     city = request.GET.get('city')
     subcity = request.GET.get('subcity')

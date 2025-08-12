@@ -17,7 +17,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 mt-2 ">
-   {% block overlay%}{% endblock overlay%}
+   {% comment %} {% block overlay%}{% endblock overlay%} {% endcomment %}
+   <div class=" min-h-96 w-full bg-cyan-400 absolute -z-10 top-0 "></div>
 
    {% if messages %}
     <div class=" absolute top-5 right-2 bg-white rounded p-4 max-w-[7rem]">
@@ -28,7 +29,7 @@
    {%endif%}
 
     <!-- Sidebar -->
-    <div class=" flex justify-between  top-2 left-3 fixed z-50">
+    <div class=" flex justify-between  top-6 left-6 fixed z-50">
       <button id="sidebar-btn">
          <i class="fas fa-bars    "></i>
        </button>
@@ -37,6 +38,9 @@
     <div class=" flex justify-between">
       <aside id="default-sidebar" class="fixed top-2 left-2 rounded-md z-40 w-64 h-screen transition-transform " aria-label="Sidebar">
          <div class="h-full px-3 py-4 overflow-y-auto rounded-lg bg-white">
+            <div class="w-full flex items-center justify-center mb-2 mr-2">
+               <span class=" text-center font-sans font-semibold text-cyan-600">የሚከራይ ቤት አለ</span>
+            </div>
             <ul class="space-y-2 font-medium">
                <li>
                   <a href="{% url 'admin-dashboard' %}" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
@@ -58,6 +62,12 @@
                      <i class="fa fa-inbox" aria-hidden="true"></i>
                      <span class="flex-1 ms-3 whitespace-nowrap">Inbox</span>
                      <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
+                  </a>
+               </li>
+               <li>
+                  <a href="{% url 'admin-listings' %}" class="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group">
+                     <i class="fa fa-house" aria-hidden="true"></i>
+                     <span class="flex-1 ms-3 whitespace-nowrap">Listings</span>
                   </a>
                </li>
                <li>
@@ -113,7 +123,7 @@
        <!-- Main content -->
       <div class=" z-30 w-full">
         <div class=" text-center">
-           <span class=" font-semibold text-cyan-500">
+           <span class=" font-semibold text-gray-700">
               Dashboard
               <span class=" font-thin ">{%block page_title %}  {%endblock page_title %}</span>
            </span>
