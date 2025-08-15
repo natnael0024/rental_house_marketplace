@@ -1,4 +1,6 @@
 {% load static tailwind_tags %}
+{% load static %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,25 +15,24 @@
     {% tailwind_css %}
     <title>የሚከራይ ቤት አለ {%block pagetitle %} {% endblock pagetitle %}</title>
 </head>
-<body class=" lg:px-40 px-2  min-h-[100rem] flex flex-col justify-between">
-    {% if messages %}
+<body class=" lg:px-28 px-2  min-h-[100rem] flex flex-col justify-between">
+    {% comment %} {% if messages %}
         <div class=" absolute top-5 right-2 bg-white rounded-lg p-4 max-w-[12rem]">
         {% for message in messages %}
-        <span class=" text-gray-700 font-weight-bolder" >{{ message }}</span>
+        <span class=" text-gray-700 font-weight-bolder" >{{ message.content }}</span>
         {% endfor %}
         </div>
-    {%endif%}
+    {%endif%} {% endcomment %}
     <div>
         <!-- mobile -->
         <div class="  sm:hidden  text-2xl text-center w-full flex items-center justify-between ">
             <a href="{% url 'listings' %}" class="flex items-center gap-1 text-3xl">
-                <span>🏡</span>
+                {% comment %} <span>🏡</span> {% endcomment %}
                 <div class=" flex items-end gap-2 font-serif">
-                    <h3 class=" text-xl">የሚከራይ</h3>
-                    <span class=" text-xl">ቤት አለ</span>
+                    <img class="w-10 object-cover flex-none" src="{% static 'logo.png' %}" alt="Listing Media">
                 </div>
             </a>
-            <a  href="{% url 'listing_create' %}" class=" sm:hidden  border bg-cyan-600 text-base hover:bg-cyan-600 text-white font-medium py-1 px-3 rounded-md">
+            <a  href="{% url 'listing_create' %}" class=" sm:hidden  border bg-lime-600 text-base hover:bg-lime-600 text-white font-medium py-1 px-3 rounded-md">
                 Post
             </a>
             {%if user.is_authenticated%}
@@ -61,7 +62,7 @@
                     </div>
                 </div>
                 {%else%}
-                <a href="{%url 'login' %}"  class="border bg-cyan-600 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-md">
+                <a href="{%url 'login' %}"  class="border bg-lime-600 hover:bg-lime-600 text-white font-medium py-2 px-4 rounded-md">
                     Login
                 </a>
                 {%endif%}
@@ -71,17 +72,18 @@
         <nav class="bg-white py-1 w-full  flex sm:flex-row flex-col items-center justify-between sticky top-0 z-50">
             <div class=" hidden sm:flex items-center gap-1 text-3xl">
               <a href="{% url 'listings' %}" class="flex items-center gap-1 text-3xl">
-                <span>🏡</span>
+                {% comment %} <span>🏡</span> {% endcomment %}
                 <div class=" flex flex-col gap-0 font-serif">
-                    <h3 class=" text-sm">የሚከራይ</h3>
-                    <span class=" text-xl">ቤት አለ</span>
+                    {% comment %} <img class=" w-[5rem]  object-cover flex-none" src="../media/static/logo.png" alt="Listing Media"> {% endcomment %}
+                    <img class="w-[4rem] object-cover flex-none" src="{% static 'logo.png' %}" alt="Listing Media">
+
                 </div>
               </a>
             </div>
             <div class=" sticky w-full sm:w-[35rem]  top-0 sm:relative sm:top-0 mx-auto bg-white rounded-lg">
                 <form class="gap-2 flex">
                     <div class="w-full">
-                        <select id="city" name="city" class="w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring-cyan-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <select id="city" name="city" class="w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 text-gray-5=700 focus:ring-lime-500 bg-white  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                             {% if request.GET.city %}
                             <option value="" class="bg-white text-gray-700 hover:bg-gray-200">{{ request.GET.city }}</option>
                             {% else %}
@@ -95,7 +97,7 @@
                         </select>
                     </div>
                     <div class="w-full">
-                        <select id="subcity" name="subcity" class="w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring-cyan-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <select id="subcity" name="subcity" class="w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                             <option value="" class="bg-white py-2 text-gray-400 hover:bg-gray-200">Subcity</option>
                             {% for subcity in subcities %}
                             <option value="{{ subcity }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ subcity }}</option>
@@ -103,14 +105,14 @@
                         </select>
                     </div>
                     <div class="w-full">
-                        <select id="price" name="price" class="w-full border-gray-300 rounded-md shadow-sm focus:border-cyan-500 focus:ring-cyan-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <select id="price" name="price" class="w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                             <option value="" class="bg-white text-gray-400 hover:bg-gray-200">Price range</option>
                             {% for key, value in price_ranges.items %}
                             <option value="{{ key }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ value }}</option>
                             {% endfor %}
                         </select>
                     </div>
-                    <button id="filterButton" type="submit" class="border bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 ease-in-out flex items-center gap-2">
+                    <button id="filterButton" type="submit" class="border bg-lime-500 hover:bg-lime-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300 ease-in-out flex items-center gap-2">
                         <i class="fas fa-search  "></i>
                         <span class=" hidden sm:block">Search</span>
                     </button>
@@ -119,17 +121,17 @@
             <div class=" flex  items-center gap-3">
                 {%if user.is_authenticated%}
                 <a href="{% url 'conversation_list' %}" class=" hidden sm:block">
-                    <i style="color: rgb(74,222,128) " class="fa fa-envelope text-xl" ></i> 
+                    <i  class="fa fa-envelope text-xl text-lime-500" ></i> 
                 </a>
                  {%endif%}
-                <a  href="{% url 'listing_create' %}" class=" hidden sm:block  border bg-cyan-600 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-md">
+                <a  href="{% url 'listing_create' %}" class=" hidden sm:block  border bg-lime-500 hover:bg-lime-700 text-white font-medium py-2 px-4 rounded-md">
                     Post
                 </a>
                 {%if user.is_authenticated%}
                 <div class=" hidden sm:block">
                     <div class="relative inline-block text-left">
                         <div>
-                          <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-cyan-500" id="menu-button" aria-expanded="false" aria-haspopup="true">
+                          <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-lime-500" id="menu-button" aria-expanded="false" aria-haspopup="true">
                             {{user.first_name}}
                             <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -147,7 +149,7 @@
                     </div>
                 </div>
                 {%else%}
-                <a href="{%url 'login' %}"  class=" hidden sm:block border bg-cyan-600 hover:bg-cyan-600 text-white font-medium py-2 px-4 rounded-md">
+                <a href="{%url 'login' %}"  class=" hidden sm:block border bg-lime-500 hover:bg-lime-700 text-white font-medium py-2 px-4 rounded-md">
                     Login
                 </a>
                 {%endif%}
@@ -179,7 +181,7 @@
                     {% csrf_token %}
                     <span>Please take a moment to share your thoughts on this website.</span>
                     <textarea class=" rounded " maxlength="500" rows="3" cols="40" name="content" id="comment" placeholder="write your comment..."></textarea>
-                    <button type="submit" class=" bg-cyan-500 focus:ring-2 focus:ring-cyan-100 p-2 rounded">
+                    <button type="submit" class=" bg-lime-500 hover:bg-lime-700 duration-300 focus:ring-2 focus:ring-lime-100 p-2 rounded">
                         <i class="fa fa-comment" aria-hidden="true"></i>
                         submit
                     </button>
