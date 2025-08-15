@@ -28,7 +28,7 @@ The Rental House Marketplace is a web application that serves as a platform for 
 
 ---
 
-## ✅ Prerequisites
+**✅ Prerequisites**
 
 - Python 3.10+
 - PostgreSQL (or SQLite for dev)
