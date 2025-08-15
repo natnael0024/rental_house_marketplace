@@ -63,7 +63,7 @@ DATABASE_URL=postgres://user:password@localhost:5432/dbname
 ALLOWED_HOSTS=localhost,127.0.0.1
 ```
 
-# 💡 Use SQLite for quick setup:
+**💡 Use SQLite for quick setup:**
 
 In settings.py, configure:
 ```
