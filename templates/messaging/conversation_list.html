@@ -4,7 +4,7 @@
 <h3 class=" text-2xl font-bold mt-4">Chats</h3>
 <div class=" mt-5 flex flex-col gap-2">
     {% for conversation in conversations %}
-    <a href="{% url 'conversation_detail' pk=conversation.pk %}" class=" h-[5rem]  bg-gray-100 hover:bg-cyan-100 p-1 rounded flex flex-col items-start gap-2 ">  
+    <a href="{% url 'conversation_detail' pk=conversation.pk %}" class=" h-[5rem]  bg-gray-100 hover:bg-lime-400 p-1 rounded flex flex-col items-start gap-2 ">  
         <div class=" flex items-start gap-2">
                 <div class=" ">
                     {% if conversation.listing %}

@@ -3,11 +3,11 @@
 {% block content%}
 
 <div class=" relative mt-2">
-  <div class="carousel h-[10rem] overflow-y-hidden sm:h-[20rem] w-full flex overflow-x-scroll no-scrollbar rounded-md">
+  <div class="carousel h-[8rem] overflow-y-hidden sm:h-[20rem] w-full flex overflow-x-scroll no-scrollbar rounded-md">
     {% for ad in ads %}
     {%if ad.url %}
       <a href="{{ad.url}}" class=" w-full">
-        <img class=" h-full min-w-full object-cover" src="{{ad.file_path}}" alt="">
+        <img class="  min-w-full object-cover" src="{{ad.file_path}}" alt="">
       </a>
     {%else%}
       <img class=" h-full min-w-full object-cover" src="{{ad.file_path}}" alt="">
@@ -28,12 +28,14 @@
     {% endfor %}
 </div>
 {% endif %} -->
-
-    <div class=" mt-10 sm:grid lg:grid-cols-4 md:grid-cols-3 flex flex-col gap-8 mx-auto">
-        {% for listing in listings%}
-            {% include './listing_card.html' with listing=listing %}
-        {% endfor %}
-    </div>
+<div class="mt-10">
+  <span class="font-semibold text-3xl">Featured</span>
+  <div class=" mt-5 sm:grid lg:grid-cols-3 md:grid-cols-3 flex flex-col gap-4 mx-auto">
+      {% for listing in listings%}
+          {% include './listing_card.html' with listing=listing %}
+      {% endfor %}
+  </div>
+</div>
 
       <!-- Pagination -->
  {%if listings|length > 1 %}
@@ -50,7 +52,7 @@
         {% for i in page_obj.paginator.page_range %}
        {% if i >= page_obj.number|add:'-5' and i <= page_obj.number|add:'5' %}
        
-       <a class="page-link" href="?page={{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><li class=" p-2 rounded-full w-12 h-12 flex items-center justify-center  {% if i == page_obj.number %} border border-cyan-300 bg-cyan-400 {%else%} border border-gray-500 {% endif %}">{{i}}</li></a>
+       <a class="page-link" href="?page={{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><li class=" p-2 rounded-full w-12 h-12 flex items-center justify-center  {% if i == page_obj.number %} border border-lime-300 bg-lime-400 {%else%} border border-gray-500 {% endif %}">{{i}}</li></a>
        {% endif %}
        {% endfor %} 
        <!-- </div> -->
@@ -99,7 +101,7 @@
       function scrollCarousel() {
       carousel.scrollTo({
         left : currentIndex * carousel.offsetWidth,
-        behavior: 'smooth'
+        //behavior: 'smooth'
       });
       updateDots();
     
@@ -117,12 +119,12 @@
   });
 }
 
-setInterval(scrollCarousel, 3000);
+setInterval(scrollCarousel, 5000);
   </script>
 
   <style>
     .carousel-dot.active {
-      background-color: #48d3e5;
+      background-color: rgb(132, 204, 22);
     }
   </style>
 

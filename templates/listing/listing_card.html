@@ -1,35 +1,36 @@
-<a class="" href="{{ listing.id }}"> 
-<div class=" w-[20rem] sm:w-[18rem] flex flex-col gap-2 border rounded-lg overflow-hidden mx-auto">
+<a class=" z-10" href="{{ listing.id }}"> 
+<div class=" w-[20rem] sm:w-[27rem] flex flex-col gap-2 border rounded-lg overflow-hidden mx-auto">
   <div class="image-container flex items-center overflow-x-hidden relative no-scrollbar">
     {%if listing.medias.all.count > 1 %}
-    <button id="left-btn" class="scroll-btn z-10 rounded-full left-btn absolute left-2 transform -translate-y-1/5 text-4xl bg-white/50 p-2 cursor-pointer">&#8592;</button>
+    {% comment %} <button id="left-btn" class="scroll-btn  z-30 p-2 rounded-full left-btn absolute left-2 transform -translate-y-1/5 text-3xl bg-white/50  w-10 h-10 cursor-pointer"> &#x2039;</button> {% endcomment %}
     {%endif%}
     <div id="image-scroll" class="image-scroll no-scrollbar flex w-full overflow-x-auto scroll-snap-type-x scroll-smooth ">
       {%if listing.medias.all %}
       {% for media in listing.medias.all %}
         <img class="h-[12rem] w-full  object-cover flex-none scroll-snap-align-start" src="{{ media.file_path }}" alt="Listing Media">
+        <span class=" absolute bottom-2 right-2 text-white text-xs font-semibold px-2.5 py-0.5 rounded  {% if listing.status %} bg-green-400  {% elif not listing.status %} bg-red-400 {% endif %}">{%if listing.status %} available {%else%} unavailable {%endif%}</span>
       {% endfor %}
       {%else%}
       <img class="h-[12rem] w-full  object-cover flex-none scroll-snap-align-start" src="https://img.freepik.com/free-vector/beautiful-home_24877-50819.jpg?t=st=1717506044~exp=1717509644~hmac=24522bbbc677586abe5adb4f91a1bdde053ef16b9d3f06374cfd1e0bfcdfa949&w=826" alt="">
       {%endif%}
     </div>
     {%if listing.medias.all.count > 1 %}
-    <button id="right-btn" class="scroll-btn z-10 rounded-full right-btn absolute right-2 transform -translate-y-1/5 text-4xl bg-white/50 p-2 cursor-pointer">&#8594;</button>
+    {% comment %} <button id="right-btn" class="scroll-btn z-10 rounded-full right-btn absolute right-2 transform -translate-y-1/5 text-4xl bg-white/50 p-2 cursor-pointer">&#x203A;</button> {% endcomment %}
     {%endif%}
   </div>
-  <div class="flex flex-col p-2">
-    <div class="flex justify-between items-center">
-      <span class="text-xl font-semibold"> {{ listing.title }} </span>
-      <span class=" text-white text-xs font-semibold px-2.5 py-0.5 rounded  {% if listing.status %} bg-green-400  {% elif not listings.status %} bg-red-400 {% endif %}">{%if listing.status %} available {%else%} unavailable {%endif%}</span>
+  <div class="flex flex-col px-3 py-2">
+    <div class=" mb-2">
+      <span class="text-xl "> {{ listing.title }} </span>
+      {% comment %} <span class=" text-white text-xs font-semibold px-2.5 py-0.5 rounded  {% if listing.status %} bg-green-400  {% elif not listings.status %} bg-red-400 {% endif %}">{%if listing.status %} available {%else%} unavailable {%endif%}</span> {% endcomment %}
     </div>
     <div class=" flex items-center gap-2">
       <i class="fas fa-map-marker-alt    "></i>
       <span class="text-sm">{{ listing.area }}, {{ listing.sub_city }}, {{ listing.city }}</span>
     </div>
-    <div class="flex">
-      <span class=""> <i class="fa fa-home" aria-hidden="true"></i> {{ listing.rooms }} rooms</span>
-      <span class=""> <i class="fa fa-bed" aria-hidden="true"></i> {{ listing.bedrooms }} bedrooms</span>
-      <span class=""> <i class="fa fa-shower" aria-hidden="true"></i> {{ listing.bathrooms }} bathrooms</span>
+    <div class="flex justify-between">
+      <span class=""> <i  class="fa fa-home text-gray-400" aria-hidden="true"></i> {{ listing.rooms }} </span>
+      <span class=""> <i class="fa fa-bed text-gray-400" aria-hidden="true"></i> {{ listing.bedrooms }} </span>
+      <span class=""> <i class="fa fa-shower text-gray-400" aria-hidden="true"></i> {{ listing.bathrooms }} </span>
     </div>
     <div class="flex items-end justify-between">
       <span class="text-2xl font-bold text-gray-900 ">ETB {{ listing.price }}<span class="text-sm font-thin">/month</span></span>
