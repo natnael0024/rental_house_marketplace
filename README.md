@@ -24,9 +24,9 @@ The Rental House Marketplace is a web application that serves as a platform for 
 
 9. **Error Handling and Validation**: Implement appropriate error handling and validation to ensure data integrity and provide feedback to users for any erroneous inputs.
 
-## Setup instructions
+🔗 **Live Preview:** [https://yba.onrender.com](https://yba.onrender.com)
 
----
+## Setup instructions
 
 **✅ Prerequisites**
 
@@ -37,8 +37,6 @@ The Rental House Marketplace is a web application that serves as a platform for 
 
 ---
 
-## ⚙️ Backend Setup (Django)
-
 1. **Clone the repository**
 
 ```bash
@@ -46,18 +44,18 @@ git clone https://github.com/natnael0024/rental_house_marketplace.git
 cd your-repo-name/backend
 ```
 
-# Create a virtual environment
+2. **Create a virtual environment**
 ```
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 ```
 
-# Install dependencies
+3. **Install dependencies**
 ```
 pip install -r requirements.txt
 ```
 
-# Create a .env file
+4. **Create a .env file**
 ```
 DEBUG=True
 SECRET_KEY=your-secret-key
@@ -77,13 +75,13 @@ DATABASES = {
 }
 ```
 
-# Run migrations and create a superuser
+5. **Run migrations and create a superuser**
 ```
 python manage.py migrate
 python manage.py createsuperuser
 ```
 
-# Start the server
+6. **Start the server**
 ```
 python manage.py runserver
 ```
