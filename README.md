@@ -24,6 +24,70 @@ The Rental House Marketplace is a web application that serves as a platform for 
 
 9. **Error Handling and Validation**: Implement appropriate error handling and validation to ensure data integrity and provide feedback to users for any erroneous inputs.
 
-## Project Goals
+## Setup instructions
 
-The Rental House Marketplace aims to connect property owners or agents with potential renters, making it easier for renters to find suitable rental properties and for property owners or agents to reach a broader audience. The application will streamline the rental process, enhancing convenience and efficiency for both parties.
+---
+
+## ✅ Prerequisites
+
+- Python 3.10+
+- PostgreSQL (or SQLite for dev)
+- pipenv or virtualenv
+- Docker & Docker Compose (optional)
+
+---
+
+## ⚙️ Backend Setup (Django)
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/natnael0024/rental_house_marketplace.git
+cd your-repo-name/backend
+```
+
+# Create a virtual environment
+```
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+```
+
+# Install dependencies
+```
+pip install -r requirements.txt
+```
+
+# Create a .env file
+```
+DEBUG=True
+SECRET_KEY=your-secret-key
+DATABASE_URL=postgres://user:password@localhost:5432/dbname
+ALLOWED_HOSTS=localhost,127.0.0.1
+```
+
+# 💡 Use SQLite for quick setup:
+
+In settings.py, configure:
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+```
+
+# Run migrations and create a superuser
+```
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+# Start the server
+```
+python manage.py runserver
+```
+
+Now visit: http://127.0.0.1:8000
+
+
