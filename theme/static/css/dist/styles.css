@@ -894,6 +894,10 @@ select {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
 
 .-mr-1 {
   margin-right: -0.25rem;
@@ -941,6 +945,9 @@ select {
 
 .ms-5 {
   margin-inline-start: 1.25rem;
+}
+.mt-6 {
+  margin-top: 1.5rem /* 24px */;
 }
 
 .mt-10 {
@@ -1274,7 +1281,11 @@ select {
 .overflow-hidden {
   overflow: hidden;
 }
-
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem /* 16px */ * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem /* 16px */ * var(--tw-space-y-reverse));
+}
 .overflow-x-auto {
   overflow-x: auto;
 }
@@ -1374,6 +1385,11 @@ select {
   background-color: rgb(219 234 254 / var(--tw-bg-opacity));
 }
 
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity)) /* #ffffff */;
+}
+
 .bg-blue-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
@@ -1447,6 +1463,14 @@ select {
   --tw-text-opacity: 1;
   color: rgb(132 204 22 / var(--tw-text-opacity)) /* #84cc16 */;
 }
+.text-lime-600 {
+  --tw-text-opacity: 1;
+  color: rgb(101 163 13 / var(--tw-text-opacity)) /* #65a30d */;
+}
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) /* #ffffff */;
+}
 .hover\:bg-lime-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(77 124 15 / var(--tw-bg-opacity)) /* #4d7c0f */;
@@ -1462,6 +1486,19 @@ select {
 .bg-lime-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(101 163 13 / var(--tw-bg-opacity)) /* #65a30d */;
+}
+
+.text-amber-300 {
+  --tw-text-opacity: 1;
+  color: rgb(252 211 77 / var(--tw-text-opacity)) /* #fcd34d */;
+}
+.text-amber-400 {
+  --tw-text-opacity: 1;
+  color: rgb(251 191 36 / var(--tw-text-opacity)) /* #fbbf24 */;
+}
+.text-amber-200 {
+  --tw-text-opacity: 1;
+  color: rgb(253 230 138 / var(--tw-text-opacity)) /* #fde68a */;
 }
 .hover\:bg-lime-600:hover {
   --tw-bg-opacity: 1;
@@ -1688,6 +1725,10 @@ select {
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+.text-lg {
+  font-size: 1.2rem /* 18px */;
+  line-height: 1.75rem /* 28px */;
 }
 
 .text-xl {

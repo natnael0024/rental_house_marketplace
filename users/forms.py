@@ -9,19 +9,19 @@ class UserRegistrationForm(forms.ModelForm):
         widgets = {
             'first_name': forms.TextInput(attrs={
             'placeholder': 'Abebe',
-            'class': 'p-6 outline-cyan-100 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+            'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 ',
             }),
             'last_name': forms.TextInput(attrs={
             'placeholder': 'Kebede',
-            'class': 'p-6 outline-cyan-100 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+            'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 ',
             }),
             'email': forms.TextInput(attrs={
             'placeholder': 'abekebe@example.com',
-            'class': 'p-6 outline-cyan-100 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+            'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 ',
             }),
             'password': forms.PasswordInput(attrs={
             'placeholder': '********',
-            'class': 'p-6 outline-cyan-100 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+            'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 ',
             }),
         }
 
@@ -32,11 +32,11 @@ class UserLoginForm(forms.ModelForm):
         widgets = {
             'email': forms.TextInput(attrs={
             'placeholder': 'abekebe@example.com',
-            'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+            'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 ',
             }),
             'password': forms.PasswordInput(attrs={
             'placeholder': '********',
-            'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+            'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 ',
             }),
         }
 

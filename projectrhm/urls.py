@@ -19,9 +19,11 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/listings/', permanent=False)),
+    path('home/', TemplateView.as_view(template_name='landing.html')),
     path('admin/', admin.site.urls),
     path('accounts/', include('users.urls')),
     path('listings/', include('listing.urls')),
