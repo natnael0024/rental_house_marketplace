@@ -13,7 +13,7 @@ class ListingForm(forms.ModelForm):
             'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 ',
             }),
             'desc': forms.Textarea(attrs={
-            'placeholder': 'bla bla',
+            'placeholder': 'write description',
             'class': 'p-6 rounded bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 ',
             }),
             'price': forms.TextInput(attrs={

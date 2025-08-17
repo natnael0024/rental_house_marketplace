@@ -58,11 +58,88 @@
             <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.desc.label_tag }}</div>
             <div>{{ form.desc }}</div>
         </div>
-        <input type="file" name="media" id="">
-        <input type="file" name="media" id="">
-        <input type="file" name="media" id="">
-        <button class="text-white mt-4 bg-lime-500 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-lime-950 dark:hover:bg-lime-700 dark:focus:ring-lime-800">POST</button>
+        <div class=" flex flex-col gap-2">
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">Choose Images</div>
+            <input type="file" name="media" class="image-input cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-lime-100 file:text-blue-700 hover:file:bg-lime-200"   id="">
+            <input type="file" name="media" class="image-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-lime-100 file:text-blue-700 hover:file:bg-lime-200"  id="">
+            <input type="file" name="media" class="image-input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-lime-100 file:text-blue-700 hover:file:bg-lime-200"  id="">
+        </div>
+        <div id="preview-container"></div>
+        <button class="text-white mt-4 duration-300 bg-lime-500 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-lime-950 dark:hover:bg-lime-700 dark:focus:ring-lime-800">POST</button>
     </div>
 </form>
+
+<style>
+    .image-preview {
+      position: relative;
+      display: inline-block;
+      margin: 10px;
+    }
+  
+    .image-preview img {
+      max-width: 150px;
+      max-height: 150px;
+      display: block;
+    }
+  
+    .remove-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: rgba(255, 0, 0, 0.7);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      line-height: 20px;
+    }
+  </style>
+  
+  <script>
+    document.querySelectorAll('.image-input').forEach((input, index) => {
+      input.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        const previewContainer = document.getElementById('preview-container');
+  
+        // Remove existing preview if any
+        const existingPreview = document.querySelector(`.preview-${index}`);
+        if (existingPreview) {
+          existingPreview.remove();
+        }
+  
+        if (file) {
+          const reader = new FileReader();
+  
+          reader.onload = function (e) {
+            const div = document.createElement('div');
+            div.className = `image-preview preview-${index}`;
+  
+            const img = document.createElement('img');
+            img.src = e.target.result;
+  
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'remove-button';
+            removeBtn.innerText = '×';
+  
+            removeBtn.onclick = function () {
+              div.remove();
+              input.value = ''; // Clear the input so the user can re-upload
+            };
+  
+            div.appendChild(img);
+            div.appendChild(removeBtn);
+            previewContainer.appendChild(div);
+          };
+  
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+  </script>
+  
 
 {% endblock content%}
