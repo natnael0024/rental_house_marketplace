@@ -41,7 +41,7 @@ The Rental House Marketplace is a web application that serves as a platform for 
 
 ```bash
 git clone https://github.com/natnael0024/rental_house_marketplace.git
-cd your-repo-name/backend
+cd rental_house_marketplace
 ```
 
 2. **Create a virtual environment**
