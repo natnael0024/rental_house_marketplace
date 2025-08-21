@@ -1,38 +1,49 @@
-{% extends "base.html" %}
-{% block content%}
 
-<h3 class=" text-2xl font-bold mt-4">Chats</h3>
-<div class=" mt-5 flex flex-col gap-2">
+
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="text-3xl font-extrabold text-lime-600 mt-6 mb-4">Chats</h3>
+
+<div class="flex flex-col gap-4">
     {% for conversation in conversations %}
-    <a href="{% url 'conversation_detail' pk=conversation.pk %}" class=" h-[5rem]  bg-gray-100 hover:bg-lime-400 p-1 rounded flex flex-col items-start gap-2 ">  
-        <div class=" flex items-start gap-2">
-                <div class=" ">
-                    {% if conversation.listing %}
-                    {% with last_image=conversation.listing.medias.first %}
-                        <img class=" h-[5rem] w-[5rem] object-cover" src="{{ last_image.file_path }}" alt="Listing Media">
-                    {% endwith %}
-                    {% endif %}
-                </div>
-                <div>
+    <a href="{% url 'conversation_detail' pk=conversation.pk %}"
+       class="group flex items-center gap-4 p-4 rounded-xl bg-amber-100 shadow hover:bg-lime-100 transition duration-300">
+
+        <!-- Listing Image -->
+        {% if conversation.listing %}
+        {% with last_image=conversation.listing.medias.first %}
+        <img src="{{ last_image.file_path }}" alt="Listing Media"
+             class="h-20 w-20 object-cover rounded-lg border border-lime-300 group-hover:scale-105 transition duration-300">
+        {% endwith %}
+        {% endif %}
+
+        <!-- Conversation Content -->
+        <div class="flex-1 overflow-hidden">
+            <div class="flex flex-col items-start mb-1">
+                <!-- Participant Name -->
+                <div class="text-lg font-semibold text-gray-800 group-hover:text-lime-700 truncate">
                     {% for participant in conversation.participants.all %}
                         {% if participant != request.user %}
-                        <span>{{ participant.first_name }}</span>
-                        {%endif%}
-                    {%endfor%}
+                            {{ participant.first_name }}
+                        {% endif %}
+                    {% endfor %}
                 </div>
-                <div class=" ml-14">
+
+                <!-- Last Message Preview -->
+                <div class="text-sm text-gray-400 truncate max-w-xs ml-4">
                     {% if conversation.messages.exists %}
-                        {% with last_message=conversation.messages.last %}
-                          <p class=" text-gray-400">{{ last_message.content }}</p>
-                        {% endwith %}
+                    {% with last_message=conversation.messages.last %}
+                        {{ last_message.content }}
+                    {% endwith %}
                     {% else %}
-                        <p>No messages yet</p>
+                        <span class="italic text-gray-300">No messages yet</span>
                     {% endif %}
                 </div>
+            </div>
         </div>
-        
     </a>
-{% endfor %}
+    {% endfor %}
 </div>
 
-{% endblock content%}
+{% endblock content %}

@@ -1,7 +1,6 @@
 {% load static tailwind_tags %}
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,35 +79,46 @@
                 </div>
               </a>
             </div>
-            <div class=" sticky w-full sm:w-[35rem]  top-0 sm:relative sm:top-0 mx-auto bg-white rounded-lg">
+            <div class=" sticky w-full sm:w-[35rem] lg:w-[50rem]  top-0 sm:relative sm:top-0 mx-auto bg-white rounded-lg">
                 <form class="gap-2 flex">
                     <div class="w-full">
-                        <select id="city" name="city" class="w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 text-gray-5=700 focus:ring-lime-500 bg-white  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                            {% if request.GET.city %}
-                            <option value="" class="bg-white text-gray-700 hover:bg-gray-200">{{ request.GET.city }}</option>
-                            {% else %}
-                            <option value="" class="bg-white text-gray-400 hover:bg-gray-200">City</option>
-                            {% endif %}
+                        <select id="city" name="city" class="w-full cursor-pointer border-gray-300 rounded-md shadow-sm focus:border-lime-500 text-gray-5=700 focus:ring-lime-500 bg-white  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                             {% for city in cities %}
-                            {% if city != request.GET.city %}
-                            <option value="{{ city }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ city }}</option>
-                            {% endif %}
+                            <option value="{{ city }}"
+                             {% if request.GET.city == city|stringformat:"s" %}selected{% endif %}
+                             class="bg-white text-gray-700 hover:bg-gray-200">{{ city }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="w-full">
-                        <select id="subcity" name="subcity" class="w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
-                            <option value="" class="bg-white py-2 text-gray-400 hover:bg-gray-200">Subcity</option>
+                        <select id="subcity" name="subcity" class="w-full cursor-pointer border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="" class="bg-white py-2 text-gray-400 ">Subcity</option>
                             {% for subcity in subcities %}
-                            <option value="{{ subcity }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ subcity }}</option>
+                            <option value="{{ subcity }}" 
+                             {% if request.GET.subcity == subcity|stringformat:"s" %}selected{% endif %}
+                             class="bg-white hover:bg-gray-200 {% if request.GET.subcity == subcity|stringformat:"s" %}text-black {% else %} text-gray-700 {% endif %}er:bg-gray-200 ">{{ subcity }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="w-full">
-                        <select id="price" name="price" class="w-full border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <select id="price" name="price" class="w-full cursor-pointer border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
                             <option value="" class="bg-white text-gray-400 hover:bg-gray-200">Price range</option>
                             {% for key, value in price_ranges.items %}
-                            <option value="{{ key }}" class="bg-white text-gray-700 hover:bg-gray-200">{{ value }}</option>
+                            <option value="{{ key }}"
+                             {% if request.GET.price == key|stringformat:"s" %}selected{% endif %} 
+                             class="bg-white text-gray-700 hover:bg-gray-200">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="w-full">
+                        <select id="price" name="bedrooms" class="w-full cursor-pointer border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="" class="bg-white text-gray-400 hover:bg-gray-200">Bedrooms</option>
+                            {% for key, value in bedrooms.items %}
+                            <option value="{{ key }}" 
+                                {% if request.GET.bedrooms == key|stringformat:"s" %}selected{% endif %}
+                                class="bg-white text-gray-700 hover:bg-gray-200">
+                                {{ value }}
+                            </option>
                             {% endfor %}
                         </select>
                     </div>
@@ -162,7 +172,7 @@
         </div>
     </div>
 
-    <footer class="bg-white ">
+    <footer class="bg-white mt-20 ">
         <div class="mx-auto w-full max-w-screen-xl py-6 lg:py-8">
             <div class="md:flex md:justify-between">
               <div class="mb-6 md:mb-0">
@@ -173,9 +183,8 @@
               <div>
                 <form action="{% url 'comment-create' %}" method="POST" class=" flex flex-col gap-2 lg:w-[20rem]">
                     {% csrf_token %}
-                    <span>Please take a moment to share your thoughts on this website.</span>
-                    <textarea class=" rounded " maxlength="500" rows="3" cols="40" name="content" id="comment" placeholder="write your comment..."></textarea>
-                    <button type="submit" class=" bg-lime-500 hover:bg-lime-700 duration-300 focus:ring-2 focus:ring-lime-100 p-2 rounded">
+                    <textarea class=" rounded outline-none focus:ring-2 focus:ring-lime-500 border focus:border-lime-500 " maxlength="500" rows="3" cols="40" name="content" id="comment" placeholder="Please take a moment to share your thoughts on this website"></textarea>
+                    <button type="submit" class=" bg-lime-500 text-white hover:bg-lime-700 duration-300 focus:ring-2 focus:ring-lime-300 p-2 rounded">
                         <i class="fa fa-comment" aria-hidden="true"></i>
                         submit
                     </button>

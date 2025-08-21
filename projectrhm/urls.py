@@ -23,7 +23,8 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/listings/', permanent=False)),
-    path('home/', TemplateView.as_view(template_name='landing.html')),
+    # path('home/', TemplateView.as_view(template_name='landing.html')),
+    path('landing/', include('users.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('users.urls')),
     path('listings/', include('listing.urls')),
