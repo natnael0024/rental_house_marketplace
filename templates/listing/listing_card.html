@@ -1,3 +1,5 @@
+{% load humanize %}
+
 <a class=" z-10" href="{{ listing.id }}"> 
 <div class=" w-[20rem] sm:w-[27rem] flex flex-col gap-2 border rounded-lg overflow-hidden mx-auto">
   <div class="image-container flex items-center overflow-x-hidden relative no-scrollbar">
@@ -33,7 +35,7 @@
       <span class=""> <i class="fa fa-shower text-gray-400" aria-hidden="true"></i> {{ listing.bathrooms }} </span>
     </div>
     <div class="flex items-end justify-between">
-      <span class="text-2xl font-bold text-gray-900 ">ETB {{ listing.price }}<span class="text-sm font-thin">/month</span></span>
+      <span class="text-2xl font-bold text-gray-900 ">ETB {{ listing.price|floatformat:0|intcomma }}<span class="text-sm font-light">/month</span></span>
     </div>
   </div>
 </div>

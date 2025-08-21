@@ -5,6 +5,15 @@ from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from listing.models import Listing, City, SubCity
+
+def get_landing(request):
+    featured_listings = Listing.objects.filter(admin_status=True).order_by('-created_at')[:3]
+    
+    context = {
+        'featured_listings':featured_listings,
+    }
+    return render(request,'landing.html', context)
 
 def register(request):
     if request.method == 'POST':   

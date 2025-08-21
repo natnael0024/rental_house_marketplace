@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'fontawesomefree',
     'admindashboard',
-    'comment'
+    'comment',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

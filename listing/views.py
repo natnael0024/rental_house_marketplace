@@ -12,7 +12,7 @@ import os
 from django.core.paginator import Paginator
 from supabase import create_client, Client
 from django.contrib.auth.decorators import login_required
-
+from django.core.cache import cache
 
 supabase: Client = create_client(os.environ.get('SUPABASE_URL'), os.environ.get('SUPABASE_SEC'))
 bucket_name = os.environ.get('SUPABASE_BUCKET')
@@ -22,26 +22,45 @@ def index(request):
     price = request.GET.get('price')
     city = request.GET.get('city')
     subcity = request.GET.get('subcity')
-    ads = Ads.objects.filter(position='main', status=True).order_by('created_at')
+    bedrooms = request.GET.get('bedrooms')
+
+    ads = cache.get('ads')
+    if not ads:
+        ads = Ads.objects.filter(position='main', status=True).order_by('created_at')
+        cache.set('ads', ads, 60*60)
     
+    cities = cache.get('cities')
+    if not cities:
+        cities = City.objects.all()
+        cache.set('cities', cities, 60*60)
+
+    subcities = cache.get('subcities')
+    if not subcities:
+        subcities = SubCity.objects.all()
+        cache.set('subcities', subcities, 60*60)
+
     if price:
         base_query = base_query.filter(price__lte=price)
     if city:
         base_query = base_query.filter(city__name=city)
     if subcity:
         base_query = base_query.filter(sub_city__name=subcity)
+    if bedrooms:
+        if bedrooms != '5':
+            base_query = base_query.filter(bedrooms=bedrooms)
+        else:
+            base_query = base_query.filter(bedrooms__gte=bedrooms)
+
 
     listings = base_query
 
-    cities = City.objects.all()
-    subcities = SubCity.objects.all()
-
-    paginator = Paginator(listings, 8)  # Show 10 orders per page
+    paginator = Paginator(listings, 12)  # Show 10 orders per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    if listings.count() < 1:
+    if not page_obj.object_list.exists():
         messages.info(request, "No House Found 😔")
+
 
     comment_form = CommentForm()
     context = {
@@ -59,6 +78,14 @@ def index(request):
              '60000': '<=60000',
              '80000': '<=80000',
              '120000': '<=120000',
+        },
+        "bedrooms":{
+             '0':'Studio',
+             '1':'1 bedroom',
+             '2': '2 bedrooms',
+             '3': '3 bedrooms',
+             '4': '4 bedrooms',
+             '5': '5+ bedrooms',
         },
         "user":request.user,
         "ads":ads,

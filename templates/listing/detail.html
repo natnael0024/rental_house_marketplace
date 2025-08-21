@@ -1,89 +1,110 @@
-{%extends "base.html"%}
-{%block title %} home {%endblock title %}
-{% block content%}
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+{% load humanize %}
 
-    <div class=" relative mt-5 flex flex-col gap-3 ">
-        <div class="  flex gap-2 w-full overflow-x-scroll  ">
-            
-            {% for media in listing.medias.all %}
-                <img class=" h-[30rem] w-[140rem] object-cover rounded" src="{{ media.file_path }}" alt="Listing Media">
-            {% endfor %}
-        </div>
-        <div class=" flex flex-col gap-2">
-            <div class=" flex justify-between items-center">
-                <!-- <div class="form-group">
-                    <label for="my-input">Text</label>
-                    <input id="my-input" class="form-control-range" type="range" name="" min="0" max="100">
-                </div> -->
-                <div class=" flex gap-1 items-center">
-                    <i class="fas fa-user border p-2 rounded-full "></i>
-                    <span>{{listing.user.first_name}} {{listing.user.last_name}}</span>
-                </div>
-                <div class="flex gap-3"></div>
-                {%if user.id != listing.user.id and listing.status %}
-                <a href="{% url 'start_conversation' listing_id=listing.id user_id=listing.user_id %}" class="text-white bg-lime-500 hover:bg-lime-600 duration-300 focus:ring-2 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                    <i class="fas fa-envelope    "></i>
-                    Send Message
-                </a>
-                {%endif%}
-                
-                <div class=" {%if user.id != listing.user.id %} hidden {%endif%}  flex gap-3">
-                    {%if user.id == listing.user.id %}
-                    {%if listing.status %}
-                        <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-lime-500 hover:bg-lime-600 focus:ring-2 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                            Mark as Unavailable
-                        </a>
-                        {%else%}
-                        <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-lime-500 hover:bg-lime-600 focus:ring-2 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                            <i class="fas fa-check   "></i>
-                            Mark as available
-                        </a>
-                        {%endif%}
-                        <a href="{% url 'listing_update' id=listing.id %}" class="text-white bg-lime-500 hover:bg-lime-600 focus:ring-2 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                            <i class="fas fa-edit    "></i>
-                            Edit
-                        </a>
-                        <div class="">
-                            <form action="{% url 'listing_delete' id=listing.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="  text-white bg-red-500 hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    DELETE
-                                </button>
-                            </form>
-                        </div>
-                        
-                    {%endif%}
-                </div>
-                </div>
+<div x-data="{ selectedImage: '{{ listing.medias.first.file_path }}' }" class="mt-6 grid grid-cols-1 lg:grid-cols-[100px_2fr_1fr]  gap-6">
 
-            </div>
-            <div class=" flex flex-col justify-between ">
-                <div class=" flex gap-3 items-center">
-                    <h3 class="text-2xl font-semibold" > {{ listing.title }} </h3>
-                    <span class="   text-white text-xs font-semibold px-2.5 py-0.5 rounded  {% if listing.status %} bg-green-400  {% elif not listing.status %} bg-red-400 {% endif %}">{%if listing.status %} available {%else%} unavailable {%endif%}</span>
-                </div>
-                <span class=" font-semibold text-xl text-orange-600">ETB {{listing.price}} monthly 💴</span>
-            </div>
-            <div class=" flex flex-col gap-2">
-                <div class=" flex gap-2 items-center">
-                    <i class="fas fa-map-marker-alt    "></i>
-                    <span> {{listing.area}}, {{listing.sub_city}}, {{listing.city}}</span>
-                </div>
-                <div class=" flex gap-10">
-                    <span class=""> <i class="fa fa-home" aria-hidden="true"></i> {{ listing.rooms }} rooms</span>
-                    <span class=""> <i class="fa fa-bed" aria-hidden="true"></i> {{ listing.bedrooms }} bedrooms</span>
-                    <span class=""> <i class="fa fa-shower" aria-hidden="true"></i> {{ listing.bathrooms }} bathrooms</span>
-                </div>
-                <div>
-                    <span class=" font-semibold">📱 {{listing.phone_number1}}, {{listing.phone_number2}}</span>
-                </div>
-            </div>
-            <div>
-                {{listing.desc}}
-            </div>
-        </div>
+  <!-- Left: Thumbnails -->
+  <div class="flex lg:flex-col gap-4 overflow-x-auto lg:overflow-y-auto max-h-[40rem] ">
+    {% for media in listing.medias.all %}
+    <img 
+      @click="selectedImage = '{{ media.file_path }}'"
+      src="{{ media.file_path }}" 
+      alt="Thumbnail"
+      class="h-20 w-28 lg:w-[10rem] object-cover rounded-lg border-2 cursor-pointer hover:border-lime-500 transition duration-300"
+      :class="{ 'border-lime-500': selectedImage === '{{ media.file_path }}' }"
+    >
+    {% endfor %}
+  </div>
+
+  <!-- Center: Main Image Display -->
+  <div class="w-full ">
+    <img 
+      :src="selectedImage" 
+      alt="Selected Image" 
+      class="w-full h-[30rem] object-cover rounded-xl shadow-lg transition-all duration-300"
+    >
+  </div>
+
+  <!-- Right: Listing Details -->
+  <div class="flex flex-col gap-5">
+
+    <!-- Owner / Message / Controls -->
+    <div class="flex justify-between items-center">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-user border p-2 rounded-full text-lime-500"></i>
+        <span class="font-semibold">{{ listing.user.first_name }} {{ listing.user.last_name }}</span>
+      </div>
+
+      {% if user.id != listing.user.id and listing.status %}
+      <a href="{% url 'start_conversation' listing_id=listing.id user_id=listing.user_id %}" class="text-white bg-lime-500 hover:bg-lime-600 transition px-4 py-2 rounded-md text-sm">
+        <i class="fas fa-envelope"></i> Send Message
+      </a>
+      {% endif %}
     </div>
 
-{% endblock content%}
+    <!-- Owner Controls -->
+    {% if user.id == listing.user.id %}
+    <div class="flex flex-col gap-3">
+      <div class="flex gap-2 flex-wrap">
+        {% if listing.status %}
+        <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-lime-500 hover:bg-lime-600 px-4 py-2 rounded-md text-sm">
+          <i class="fa fa-times"></i> Mark as Unavailable
+        </a>
+        {% else %}
+        <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-lime-500 hover:bg-lime-600 px-4 py-2 rounded-md text-sm">
+          <i class="fas fa-check"></i> Mark as Available
+        </a>
+        {% endif %}
+        <a href="{% url 'listing_update' id=listing.id %}" class="text-white bg-lime-500 hover:bg-lime-600 px-4 py-2 rounded-md text-sm">
+          <i class="fas fa-edit"></i> Edit
+        </a>
+        <form action="{% url 'listing_delete' id=listing.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md text-sm">
+            <i class="fa fa-trash"></i> Delete
+          </button>
+        </form>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Listing Info -->
+    <div>
+      <div class="flex items-center gap-2 mb-1">
+        <h2 class="text-2xl font-bold">{{ listing.title }}</h2>
+        <span class="text-white text-xs font-semibold px-2 py-1 rounded {% if listing.status %} bg-green-400 {% else %} bg-red-400 {% endif %}">
+          {% if listing.status %}Available{% else %}Unavailable{% endif %}
+        </span>
+      </div>
+
+      <p class="text-xl font-semibold text-gray-800">ETB {{ listing.price|floatformat:0|intcomma }} <span class="font-light text-base">/month</span></p>
+    </div>
+
+    <div class="text-sm text-gray-600 space-y-2">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-map-marker-alt text-lime-600"></i>
+        <span>{{ listing.area }}, {{ listing.sub_city }}, {{ listing.city }}</span>
+      </div>
+      <div class="flex gap-6 mt-2">
+        <span><i class="fa fa-home text-lime-600"></i> {{ listing.rooms }} rooms</span>
+        <span><i class="fa fa-bed text-lime-600"></i> {{ listing.bedrooms }} bedrooms</span>
+        <span><i class="fa fa-shower text-lime-600"></i> {{ listing.bathrooms }} bathrooms</span>
+      </div>
+      <div class="mt-2">
+        <span class="font-semibold"><i class="fa fa-phone text-lime-600"></i> {{ listing.phone_number1 }}{% if listing.phone_number2 %}, {{ listing.phone_number2 }}{% endif %}</span>
+      </div>
+    </div>
+
+    <div class="mt-4 text-gray-700">
+      {{ listing.desc }}
+    </div>
+
+  </div>
+</div>
+
+<!-- AlpineJS for image interactivity -->
+<script src="//unpkg.com/alpinejs" defer></script>
+
+{% endblock content %}
