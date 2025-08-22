@@ -82,7 +82,8 @@
             <div class=" sticky w-full sm:w-[35rem] lg:w-[50rem]  top-0 sm:relative sm:top-0 mx-auto bg-white rounded-lg">
                 <form class="gap-2 flex">
                     <div class="w-full">
-                        <select id="city" name="city" class="w-full cursor-pointer border-gray-300 rounded-md shadow-sm focus:border-lime-500 text-gray-5=700 focus:ring-lime-500 bg-white  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                        <select id="city" name="city" class="w-full cursor-pointer border-gray-300 rounded-md shadow-sm focus:border-lime-500 focus:ring-lime-500 bg-white text-gray-700 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="" class="bg-white py-2 text-gray-400 ">City</option>
                             {% for city in cities %}
                             <option value="{{ city }}"
                              {% if request.GET.city == city|stringformat:"s" %}selected{% endif %}
