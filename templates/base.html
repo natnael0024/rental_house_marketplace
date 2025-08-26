@@ -75,7 +75,6 @@
                 <div class=" flex flex-col gap-0 font-serif">
                     {% comment %} <img class=" w-[5rem]  object-cover flex-none" src="../media/static/logo.png" alt="Listing Media"> {% endcomment %}
                     <img class="w-[4rem] object-cover flex-none" src="{% static 'logo.png' %}" alt="Listing Media">
-
                 </div>
               </a>
             </div>
@@ -192,42 +191,42 @@
                 </form>
               </div>
               <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
-                  <div>
+                  {% comment %} <div>
                       <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase ">Resources</h2>
                       <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                          <!-- <li class="mb-4">
+                          <li class="mb-4">
                               <a href="#" class="hover:underline">Flowbite</a>
-                          </li> -->
+                          </li>
                           <li>
                               <a href="#" class="hover:underline">Tailwind CSS</a>
-                          </li>
+                          </li> 
                       </ul>
-                  </div>
-                  <div>
+                  </div> {% endcomment %}
+                  {% comment %} <div>
                       <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase ">Follow us</h2>
                       <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                          <li class="mb-4">
+                           <li class="mb-4">
                               <a href="#" class="hover:underline ">Github</a>
-                          </li>
-                          <li>
+                          </li> 
+                           <li>
                               <a href="#" class="hover:underline">Discord</a>
-                          </li>
+                          </li> 
                       </ul>
-                  </div>
+                  </div> {% endcomment %}
                   <div>
                       <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase ">Legal</h2>
                       <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                          <li class="mb-4">
+                          {% comment %} <li class="mb-4">
                               <a href="#" class="hover:underline">Privacy Policy</a>
-                          </li>
+                          </li> {% endcomment %}
                           <li>
-                              <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                              <a href="{%url 'terms' %}" class="hover:underline">Terms &amp; Conditions</a>
                           </li>
                       </ul>
                   </div>
               </div>
           </div>
-          <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+          <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
           <div class="sm:flex sm:items-center sm:justify-between">
               <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">Made in Ethiopia ©2025 <a target="_blank" href="https://natnaellegesse.vercel.app" class="hover:underline">Natnael Legesse™</a>. All Rights Reserved.
               </span>
