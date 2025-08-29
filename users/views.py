@@ -6,6 +6,11 @@ from .forms import UserRegistrationForm, UserLoginForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from listing.models import Listing, City, SubCity
+import requests
+from django.conf import settings
+import os
+
+RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY')
 
 def get_landing(request):
     featured_listings = Listing.objects.filter(admin_status=True).order_by('-created_at')[:3]
@@ -15,26 +20,52 @@ def get_landing(request):
     }
     return render(request,'landing.html', context)
 
+
+
 def register(request):
     if request.method == 'POST':   
+        # Get CAPTCHA response
+        captcha_token = request.POST.get('g-recaptcha-response')
+        captcha_secret = settings.RECAPTCHA_SECRET_KEY  # stored in settings.py
+
+        # Verify with Google
+        captcha_response = requests.post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            data={
+                'secret': captcha_secret,
+                'response': captcha_token
+            }
+        )
+        result = captcha_response.json()
+
+        if not result.get('success'):
+            form = UserRegistrationForm(request.POST)
+            context = {
+                'form': form,
+                'error': 'Invalid reCAPTCHA. Please try again.'
+            }
+            return render(request, 'auth/register.html', context)
+        
+        if request.POST.get('nickname'):
+            context = {
+                'form': form,
+                'error': 'Bot Detected'
+            }
+            return render(request, 'auth/register.html', context)
+
+        # CAPTCHA passed — continue with registration
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.save()
-        # first_name = request.POST['first_name']
-        # last_name = request.POST['last_name']
-        # username = request.POST['username']
-        # password = request.POST['password']
-        # user = CustomUser.objects.create_user(username=username, password=password)
             login(request, user)
             return redirect('listings')
     else:
         form = UserRegistrationForm()
-        context = {
-            'form':form
-        }
-        return render(request, 'auth/register.html',context)
+
+    return render(request, 'auth/register.html', {'form': form})
+
 
 def login_view(request):
     form = UserLoginForm()
