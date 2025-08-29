@@ -41,9 +41,13 @@
                   <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.password.label_tag }}</div>
                   <div>{{ form.password }}</div>
               </div>
-              <div class="g-recaptcha" data-sitekey="6Lei6bYrAAAAAFNi-YKlSlHFM2Vs-hBRVhQrnG4Q"></div>
+              <div class="g-recaptcha"
+                   data-sitekey="6Lei6bYrAAAAAFNi-YKlSlHFM2Vs-hBRVhQrnG4Q"
+                   data-callback="enableSubmitButton"
+                   data-expired-callback="disableSubmitButton">
+              </div>
 
-              <button class=" text-lime-600 bg-white hover:bg-lime-600 hover:text-white duration-300 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center">Signup</button>
+              <button id="submit-btn" class=" text-lime-600 bg-white hover:bg-lime-600 hover:text-white duration-300 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center">Signup</button>
             </form>
               <div class="mt-6">
                   <a href="{% url 'login' %}" class=" mt-4 ">Already have an account? <span class=" text-amber-200 hover:underline">LOGIN</span></a>
@@ -54,3 +58,16 @@
 </body>
 </html>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+  function enableSubmitButton() {
+    document.getElementById("submit-btn").disabled = false;
+  }
+
+  function disableSubmitButton() {
+    document.getElementById("submit-btn").disabled = true;
+  }
+
+  window.onload = function() {
+    disableSubmitButton();
+  }
+</script>
