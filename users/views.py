@@ -26,7 +26,7 @@ def register(request):
     if request.method == 'POST':   
         # Get CAPTCHA response
         captcha_token = request.POST.get('g-recaptcha-response')
-        captcha_secret = settings.RECAPTCHA_SECRET_KEY  # stored in settings.py
+        captcha_secret = RECAPTCHA_SECRET_KEY 
 
         # Verify with Google
         captcha_response = requests.post(
