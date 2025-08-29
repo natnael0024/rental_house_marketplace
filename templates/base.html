@@ -24,60 +24,53 @@
     {%endif%} {% endcomment %}
     <div>
         <!-- mobile -->
-        <div class="  sm:hidden  text-2xl text-center w-full flex items-center justify-between ">
+        <div class="  sm:hidden py-2  text-2xl text-center w-full flex items-center justify-between ">
             <a href="{% url 'listings' %}" class="flex items-center gap-1 text-3xl">
-                {% comment %} <span>🏡</span> {% endcomment %}
                 <div class=" flex items-end gap-2 font-serif">
                     <img class="w-10 object-cover flex-none" src="{% static 'logo.png' %}" alt="Listing Media">
                 </div>
             </a>
-            <a  href="{% url 'listing_create' %}" class=" sm:hidden  border bg-lime-600 text-base hover:bg-lime-600 text-white font-medium py-1 px-3 rounded-md">
-                Post
-            </a>
-            {%if user.is_authenticated%}
-                <a href="{% url 'conversation_list' %}" class=" sm:hidden">
-                    <i class="fa fa-envelope" aria-hidden="true"></i> 
-                </a>
-            {%endif%}
-            
-            {%if user.is_authenticated%}
-                <div class=" ">
-                    <div class="relative inline-block text-left">
-                        <div>
-                          <button id="menu-button-mob" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"  aria-expanded="false" aria-haspopup="true">
-                            {{user.first_name}}
-                            <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                          </button>
-                        </div>
-                        <div class="origin-top-right-mob absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" style="display: none;">
-                          <div class="py-1" role="none">
-                            <a href=" {% url 'my_listings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-0">My Listings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-1">Update Profile</a>
-                            <a href="{%url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-2">Sign Out</a>
-                          </div>
+            <div class="flex items-center gap-4">
+                {%if user.is_authenticated%}
+                    <div class=" ">
+                        <div class="relative inline-block text-left">
+                            <div>
+                              <button id="menu-button-mob" type="button" class="inline-flex justify-center w-full rounded-md px-4 py-2 text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-lime-500"  aria-expanded="false" aria-haspopup="true">
+                                <i class="fas fa-bars text-lg"></i>
+                              </button>
+                            </div>
+                            <div class="origin-top-right-mob z-60 absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" style="display: none;">
+                              <div class="py-1" role="none">
+                                <a href=" {% url 'my_listings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-0">My Listings</a>
+                                <a  href="{% url 'listing_create' %}" class=" block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                                    Post
+                                </a>
+                                <a href="{% url 'conversation_list' %}" class=" block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i> Messages
+                                </a>
+                                <a href="{%url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-2">Sign Out</a>
+                              </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {%else%}
-                <a href="{%url 'login' %}"  class="border bg-lime-600 hover:bg-lime-600 text-white font-medium py-2 px-4 rounded-md">
-                    Login
-                </a>
+                    <a href="{%url 'login' %}"  class="border bg-lime-600 hover:bg-lime-600 text-white font-medium py-2 px-4 rounded-md">
+                        Login
+                    </a>
                 {%endif%}
+            </div>
         </div>
 
         <!-- desktop -->
         <nav class="bg-white py-1 w-full  flex sm:flex-row flex-col items-center justify-between sticky top-0 z-50">
             <div class=" hidden sm:flex items-center gap-1 text-3xl">
               <a href="{% url 'listings' %}" class="flex items-center gap-1 text-3xl">
-                {% comment %} <span>🏡</span> {% endcomment %}
                 <div class=" flex flex-col gap-0 font-serif">
-                    {% comment %} <img class=" w-[5rem]  object-cover flex-none" src="../media/static/logo.png" alt="Listing Media"> {% endcomment %}
                     <img class="w-[4rem] object-cover flex-none" src="{% static 'logo.png' %}" alt="Listing Media">
                 </div>
               </a>
             </div>
+            {% if request.path == '/listings/' %}
             <div class=" sticky w-full sm:w-[35rem] lg:w-[50rem]  top-0 sm:relative sm:top-0 mx-auto bg-white rounded-lg">
                 <form class="gap-2 flex">
                     <div class="w-full">
@@ -128,6 +121,7 @@
                     </button>
                 </form>
             </div>
+            {% endif %}
             <div class=" flex  items-center gap-3">
                 {%if user.is_authenticated%}
                 <a href="{% url 'conversation_list' %}" class=" hidden sm:block">
@@ -152,7 +146,7 @@
                         <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" style="display: none;">
                           <div class="py-1" role="none">
                             <a href=" {% url 'my_listings' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-0">My Listings</a>
-                            <a href="{% url 'profile_update_view' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-1">Update Profile</a>
+                            {% comment %} <a href="{% url 'profile_update_view' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-1">Update Profile</a> {% endcomment %}
                             <a href="{%url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-2">Sign Out</a>
                           </div>
                         </div>
