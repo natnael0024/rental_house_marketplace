@@ -23,6 +23,7 @@
           <div class="flex-1 px-6 w-full max-w-md my-auto">
             <form method='POST' enctype="multipart/form-data" class=" z-50 ">
               {% csrf_token %}
+              <input type="text" name="nickname" style="display:none">
               <h1 class=" text-3xl text-cyan-950 font-bold text-center">Signup </h1>
               <div class="mb-4 flex flex-col ">
                   <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.first_name.label_tag }}</div>
@@ -40,6 +41,8 @@
                   <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.password.label_tag }}</div>
                   <div>{{ form.password }}</div>
               </div>
+              <div class="g-recaptcha" data-sitekey="6Lei6bYrAAAAAFNi-YKlSlHFM2Vs-hBRVhQrnG4Q"></div>
+
               <button class=" text-lime-600 bg-white hover:bg-lime-600 hover:text-white duration-300 focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-lg w-full sm:w-auto px-5 py-2.5 text-center">Signup</button>
             </form>
               <div class="mt-6">
@@ -50,3 +53,4 @@
   </div>
 </body>
 </html>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
