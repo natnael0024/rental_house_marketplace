@@ -3,7 +3,7 @@
  {% block page_title %}/ Home {% endblock page_title %}
 
  {% block overlay %}
-  <div class=" min-h-96 w-full bg-cyan-200 absolute -z-10 top-0 "></div>
+  <div class=" min-h-96 w-full bg-lime-200 absolute -z-10 top-0 "></div>
 {% endblock overlay %}
 
 {% block content %}
@@ -65,7 +65,7 @@
         {% for i in page_obj.paginator.page_range %}
        {% if i >= page_obj.number|add:'-5' and i <= page_obj.number|add:'5' %}
        
-       <a class="page-link" href="?page={{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><li class=" p-2 rounded-full w-12 h-12 flex items-center justify-center  {% if i == page_obj.number %} border border-cyan-300 bg-cyan-400 {%else%} border border-gray-500 {% endif %}">{{i}}</li></a>
+       <a class="page-link" href="?page={{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><li class=" p-2 rounded-full w-12 h-12 flex items-center justify-center  {% if i == page_obj.number %} border border-lime-300 bg-lime-400 {%else%} border border-gray-500 {% endif %}">{{i}}</li></a>
        {% endif %}
        {% endfor %} 
        <!-- </div> -->

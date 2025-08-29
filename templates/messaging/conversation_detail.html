@@ -1,8 +1,9 @@
 {% extends "base.html"%}
 
 {% block content%}
+{% load humanize %}
 
-<div class="container mx-auto px-4 mt-3">
+<div class="container mx-auto px-2 mt-3">
     <div>
         {% for participant in conversation.participants.all %}
             {% if participant != request.user %}
@@ -10,34 +11,47 @@
             {%endif%}
         {%endfor%}
     </div>
-    <div class=" flex gap-5 items-start">
-        <div class=" flex gap-2 overflow-x-scroll  ">
-            {% for media in conversation.listing.medias.all %}
-                <img class=" h-[15rem] w-[15rem] object-cover" src="{{ media.file_path }}" alt="Listing Media">
-            {% endfor %}
-        </div>
-        <div class=" flex flex-col gap-5">
-            <div class=" flex gap-2 items-center">
-                <span class=" font-semibold text-2xl">{{conversation.listing.title}}</span>
-                <span class="  text-white text-xs font-semibold px-2.5 py-0.5 rounded  {% if conversation.listing.status %} bg-green-400  {% elif not conversation.listing.status %} bg-red-400 {% endif %}">{%if conversation.listing.status %} available {%else%} unavailable {%endif%}</span>
+    <!-- Listing Info -->
+    <div class="flex flex-row sm:w-[50%] border border-lime-400 rounded-lg mx-auto shadow-lg gap-5 items-start p-4 bg-white">
+        <!-- First Image Only -->
+        {% with conversation.listing.medias.all|first as first_image %}
+            {% if first_image %}
+                <img class="h-20 w-20 sm:w-40 sm:h-40  object-cover rounded" src="{{ first_image.file_path }}" alt="Listing Image">
+            {% endif %}
+        {% endwith %}
+    
+        <div class="flex flex-col gap-2">
+            <!-- Title and Status -->
+            <div class="flex items-center gap-2">
+                <span class="font-semibold">{{ conversation.listing.title }}</span>
+                <span class="text-white text-xs font-semibold px-2.5 py-0.5 rounded 
+                    {% if conversation.listing.status %} bg-green-400 
+                    {% else %} bg-red-400 
+                    {% endif %}">
+                    {% if conversation.listing.status %} Available {% else %} Unavailable {% endif %}
+                </span>
             </div>
-            <span class=" font-semibold text-2xl">{{conversation.listing.price}} ETB<span class=" text-xl font-thin">/monthly</span></span>
-            <div class=" flex flex-col gap-5">
-                <div class=" flex gap-2 items-center">
-                    <i class="fas fa-map-marker-alt "></i>
-                    <span> {{conversation.listing.area}}, {{conversation.listing.sub_city}}, {{conversation.listing.city}}</span>
-                </div>
-                <div class=" flex gap-10">
-                    <span class=""> <i class="fa fa-home" aria-hidden="true"></i> {{ listing.rooms }} rooms</span>
-                    <span class=""> <i class="fa fa-bed" aria-hidden="true"></i> {{ listing.bedrooms }} bedrooms</span>
-                    <span class=""> <i class="fa fa-shower" aria-hidden="true"></i> {{ listing.bathrooms }} bathrooms</span>
-                </div>
-                <div>
-                    <span class=" font-semibold">📱 {{conversation.listing.phone_number1}}, {{conversation.listing.phone_number2}}</span>
-                </div>
+    
+            <!-- Price -->
+            <span class=" font-semibold">
+                {{ conversation.listing.price|floatformat:0|intcomma }} ETB
+                <span class="text-sm font-light">/monthly</span>
+            </span>
+    
+            <!-- Address -->
+            <div class="flex items-center gap-2 text-gray-700 text-sm">
+                <i class="fas fa-map-marker-alt text-lime-600"></i>
+                <span>{{ conversation.listing.area }}, {{ conversation.listing.sub_city }}, {{ conversation.listing.city }}</span>
             </div>
+    
+            <!-- View Details Link -->
+            <a href="{% url 'listing_retrieve' conversation.listing.id %}" 
+               class="text-lime-600 font-semibold text-sm hover:underline mt-2">
+                View Details →
+            </a>
         </div>
     </div>
+    
     <ul class="space-y-4 mt-5">
         {% for message in messages %}
         <li class="flex flex-col bg-lime-100 p-2 max-w-[20rem] rounded-b-xl rounded-tr-xl  ">
@@ -53,7 +67,10 @@
         {% csrf_token %}
         <!-- <input type="text" name="content" placeholder="Type your message..." class=" w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-lime-500"> -->
         {{form.as_p}}
-        <button type="submit" class="mt-2 px-4 py-2   bg-lime-500 text-white rounded hover:bg-lime-600 focus:outline-none focus:bg-lime-600">Send</button>
+        <button type="submit" class="mt-2 px-4 py-2   bg-lime-500 text-white rounded hover:bg-lime-600 focus:outline-none focus:bg-lime-600">
+            Send
+            <i class="fas fa-paper-plane"></i>
+        </button>
     </form>
 </div>
 {% endblock content%}

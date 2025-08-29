@@ -113,7 +113,7 @@ def set_listing_status(request, id):
 def get_users(request):
     users = CustomUser.objects.all().order_by('-created_at')
     
-    paginator = Paginator(users, 4)  # Show 10  per page
+    paginator = Paginator(users, 10)  # Show 10  per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
@@ -201,7 +201,7 @@ def add_subcity(request):
 def get_comments(request):
     comments = Comment.objects.all().order_by('-created_at')
 
-    paginator = Paginator(comments, 5)  # Show 10 orders per page
+    paginator = Paginator(comments, 7)  # Show 7 orders per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {

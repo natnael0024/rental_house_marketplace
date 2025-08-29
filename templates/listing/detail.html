@@ -12,8 +12,8 @@
       @click="selectedImage = '{{ media.file_path }}'"
       src="{{ media.file_path }}" 
       alt="Thumbnail"
-      class="h-20 w-28 lg:w-[10rem] object-cover rounded-lg border-2 cursor-pointer hover:border-lime-500 transition duration-300"
-      :class="{ 'border-lime-500': selectedImage === '{{ media.file_path }}' }"
+      class="h-20 w-28 lg:w-[10rem] object-cover rounded-lg border-3 border-transparent cursor-pointer hover:border-lime-500 transition duration-300"
+      :class="{ 'border-lime-500 shadow-lg': selectedImage === '{{ media.file_path }}' }"
     >
     {% endfor %}
   </div>
@@ -23,7 +23,7 @@
     <img 
       :src="selectedImage" 
       alt="Selected Image" 
-      class="w-full h-[30rem] object-cover rounded-xl shadow-lg transition-all duration-300"
+      class="w-full h-full sm:h-[40rem] object-cover rounded-xl shadow-lg transition-all duration-300"
     >
   </div>
 
