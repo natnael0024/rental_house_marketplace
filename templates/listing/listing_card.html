@@ -1,7 +1,7 @@
 {% load humanize %}
 
 <a class=" z-10" href="{{ listing.id }}"> 
-<div class=" w-[20rem] sm:w-[27rem] flex flex-col gap-2 border rounded-lg overflow-hidden mx-auto">
+<div class=" w-[20rem] sm:w-[27rem] flex flex-col rounded-xl overflow-hidden mx-auto border bg-gray-50 hover:shadow-md">
   <div class="image-container flex items-center overflow-x-hidden relative no-scrollbar">
     {%if listing.medias.all.count > 1 %}
     {% comment %} <button id="left-btn" class="scroll-btn  z-30 p-2 rounded-full left-btn absolute left-2 transform -translate-y-1/5 text-3xl bg-white/50  w-10 h-10 cursor-pointer"> &#x2039;</button> {% endcomment %}
@@ -9,7 +9,7 @@
     <div id="image-scroll" class="image-scroll no-scrollbar flex w-full overflow-x-auto scroll-snap-type-x scroll-smooth ">
       {%if listing.medias.all %}
       {% for media in listing.medias.all %}
-        <img class="h-[12rem] w-full  object-cover flex-none scroll-snap-align-start" src="{{ media.file_path }}" alt="Listing Media">
+        <img class="h-[12rem] sm:h-[16rem] w-full  object-cover flex-none scroll-snap-align-start" src="{{ media.file_path }}" alt="Listing Media">
         <span class=" absolute bottom-2 right-2 text-white text-xs font-semibold px-2.5 py-0.5 rounded  {% if listing.status %} bg-green-400  {% elif not listing.status %} bg-red-400 {% endif %}">{%if listing.status %} available {%else%} unavailable {%endif%}</span>
       {% endfor %}
       {%else%}
@@ -20,22 +20,22 @@
     {% comment %} <button id="right-btn" class="scroll-btn z-10 rounded-full right-btn absolute right-2 transform -translate-y-1/5 text-4xl bg-white/50 p-2 cursor-pointer">&#x203A;</button> {% endcomment %}
     {%endif%}
   </div>
-  <div class="flex flex-col px-3 py-2">
-    <div class=" mb-2">
+  <div class="flex flex-col">
+    <div class=" mb-2 mt-4 px-3">
       <span class="text-xl "> {{ listing.title }} </span>
       {% comment %} <span class=" text-white text-xs font-semibold px-2.5 py-0.5 rounded  {% if listing.status %} bg-green-400  {% elif not listings.status %} bg-red-400 {% endif %}">{%if listing.status %} available {%else%} unavailable {%endif%}</span> {% endcomment %}
     </div>
-    <div class=" flex items-center gap-2">
-      <i class="fas fa-map-marker-alt    "></i>
-      <span class="text-sm">{{ listing.area }}, {{ listing.sub_city }}, {{ listing.city }}</span>
+    <div class=" flex items-center gap-2 px-3">
+      {% comment %} <i class="fas fa-map-marker-alt    "></i> {% endcomment %}
+      <span class="text-sm text-gray-500">{{ listing.area }}, {{ listing.sub_city }}, {{ listing.city }}</span>
     </div>
-    <div class="flex justify-between">
-      <span class=""> <i  class="fa fa-home text-gray-400" aria-hidden="true"></i> {{ listing.rooms }} </span>
-      <span class=""> <i class="fa fa-bed text-gray-400" aria-hidden="true"></i> {{ listing.bedrooms }} </span>
-      <span class=""> <i class="fa fa-shower text-gray-400" aria-hidden="true"></i> {{ listing.bathrooms }} </span>
-    </div>
-    <div class="flex items-end justify-between">
+    <div class="flex items-end justify-between px-3 mt-4">
       <span class="text-2xl font-bold text-gray-900 ">ETB {{ listing.price|floatformat:0|intcomma }}<span class="text-sm font-light">/month</span></span>
+    </div>
+    <div class="flex border-t border-gray-200 mt-4 divide-x divide-gray-200">
+      <span class=" flex-1 p-4 text-center "> <i  class="fa fa-home text-gray-400 " aria-hidden="true"></i> {{ listing.rooms }} </span>
+      <span class=" flex-1 p-4 text-center"> <i class="fa fa-bed text-gray-400 " aria-hidden="true"></i> {{ listing.bedrooms }} </span>
+      <span class=" flex-1 p-4 text-center"> <i class="fa fa-shower text-gray-400" aria-hidden="true"></i> {{ listing.bathrooms }} </span>
     </div>
   </div>
 </div>

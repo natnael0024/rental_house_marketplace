@@ -2,7 +2,7 @@
 {%block title %} home {%endblock title %}
 {% block content%}
 
-<div class=" relative mt-2">
+<div class=" relative mt-2 ">
   <div class="carousel h-[8rem] overflow-y-hidden sm:h-[18rem] w-full flex overflow-x-scroll no-scrollbar rounded-md">
     {% for ad in ads %}
     {%if ad.url %}
@@ -30,7 +30,7 @@
 {% endif %} -->
 <div class="mt-10">
   <span class="font-semibold text-3xl">Featured</span>
-  <div class=" mt-5 sm:grid lg:grid-cols-3 md:grid-cols-3 flex flex-col gap-4 mx-auto">
+  <div class=" mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  gap-4 mx-auto">
       {% for listing in listings%}
           {% include './listing_card.html' with listing=listing %}
       {% endfor %}
