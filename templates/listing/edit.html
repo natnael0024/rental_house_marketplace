@@ -1,61 +1,74 @@
-{% extends "base.html"%}
+{% extends "newbase.html"%}
 {% block title %} home {% endblock title %}
 {% block content%}
 
+<div class="mx-auto px-4 sm:px-6 lg:px-14 mt-3">
 <h2 class="text-2xl text-lime-950 font-bold text-center mt-5"> <i class="fa fa-edit text-lime-400" ></i> Edit Listing</h2>
-<form method='POST' enctype="multipart/form-data" class=" flex justify-between mx-auto mt-5 gap-5">
+<form method='POST' enctype="multipart/form-data" class=" flex flex-col sm:flex-row justify-between mx-auto mt-5 gap-5">
     {% csrf_token %}
     <div class=" flex flex-col w-full">
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.title.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.title.label_tag }}</div>
             <div>{{ form.title }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.price.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.price.label_tag }}</div>
             <div>{{ form.price }}</div>
         </div>
-        <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.rooms.label_tag }}</div>
+        {% comment %} <div class="mb-4">
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.rooms.label_tag }}</div>
             <div>{{ form.rooms }}</div>
-        </div>
+        </div> {% endcomment %}
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.bedrooms.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.bedrooms.label_tag }}</div>
             <div>{{ form.bedrooms }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.bathrooms.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.bathrooms.label_tag }}</div>
             <div>{{ form.bathrooms }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.square_metre.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.square_metre.label_tag }}</div>
             <div>{{ form.square_metre }}</div>
+        </div>
+        <div class="mb-4">
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.amenities.label_tag }}</div>
+            <div class="flex flex-wrap gap-4">
+              {% for checkbox in form.amenities %}
+              <label class="custom-checkbox hover:bg-lime-100 flex items-center px-2 rounded duration-300 cursor-pointer">
+                  {{ checkbox.tag }}
+                  <span class="checkmark"></span>
+                  {{ checkbox.choice_label }}
+              </label>
+              {% endfor %}
+            </div>
         </div>
     </div>
     <div class="flex flex-col w-full">
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.city.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.city.label_tag }}</div>
             <div class="">{{ form.city }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.sub_city.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.sub_city.label_tag }}</div>
             <div>{{ form.sub_city }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.area.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.area.label_tag }}</div>
             <div>{{ form.area }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.phone_number1.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.phone_number1.label_tag }}</div>
             <div>{{ form.phone_number1 }}</div>
         </div>
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.phone_number2.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.phone_number2.label_tag }}</div>
             <div>{{ form.phone_number2 }}</div>
         </div>
     </div>
     <div class="flex flex-col w-full">
         <div class="mb-4">
-            <div class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ form.desc.label_tag }}</div>
+            <div class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.desc.label_tag }}</div>
             <div>{{ form.desc }}</div>
         </div>
         {% comment %} <input type="file" name="media" id="">
@@ -64,5 +77,5 @@
         <button class="text-white mt-4 bg-lime-500 hover:bg-lime-600 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-lime-950 dark:hover:bg-lime-700 dark:focus:ring-lime-800">UPDATE</button>
     </div>
 </form>
-
+</div>
 {% endblock content%}

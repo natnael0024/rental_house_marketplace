@@ -18,6 +18,15 @@ class SubCity(models.Model):
     def __str__(self):
         return self.name
 
+class Amenity(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        db_table = 'amenities'
+
 class Listing(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE, related_name='listings')
     title = models.CharField( max_length=50)
@@ -37,6 +46,8 @@ class Listing(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    amenities = models.ManyToManyField(Amenity, blank=True, related_name='listings')
+
     def __str__(self):
         return self.title
     
@@ -53,3 +64,4 @@ class ListingMedia(models.Model):
 
     class Meta:
         db_table = 'listing_medias'
+

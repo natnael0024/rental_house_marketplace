@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "newbase.html" %}
 {% block title %}Home{% endblock title %}
 {% block content %}
 {% load humanize %}
 
-<div x-data="{ selectedImage: '{{ listing.medias.first.file_path }}' }" class="mt-6 grid grid-cols-1 lg:grid-cols-[100px_2fr_1fr]  gap-6">
+<div x-data="{ selectedImage: '{{ listing.medias.first.file_path }}' }" class="mt-6 grid grid-cols-1 lg:grid-cols-[100px_2fr_1fr]  gap-6 px-4 sm:px-6 lg:px-14">
 
   <!-- Left: Thumbnails -->
   <div class="flex lg:flex-col gap-4 overflow-x-auto lg:overflow-y-auto max-h-[40rem] ">
@@ -82,19 +82,34 @@
       <p class="text-xl font-semibold text-gray-800">ETB {{ listing.price|floatformat:0|intcomma }} <span class="font-light text-base">/month</span></p>
     </div>
 
-    <div class="text-sm text-gray-600 space-y-2">
+    <div class="text-sm text-gray-600 space-y-4">
       <div class="flex items-center gap-2">
         <i class="fas fa-map-marker-alt text-lime-600"></i>
         <span>{{ listing.area }}, {{ listing.sub_city }}, {{ listing.city }}</span>
       </div>
       <div class="flex gap-6 mt-2">
-        <span><i class="fa fa-home text-lime-600"></i> {{ listing.rooms }} rooms</span>
+        {% comment %} <span><i class="fa fa-home text-lime-600"></i> {{ listing.rooms }} rooms</span> {% endcomment %}
         <span><i class="fa fa-bed text-lime-600"></i> {{ listing.bedrooms }} bedrooms</span>
         <span><i class="fa fa-shower text-lime-600"></i> {{ listing.bathrooms }} bathrooms</span>
       </div>
       <div class="mt-2">
         <span class="font-semibold"><i class="fa fa-phone text-lime-600"></i> {{ listing.phone_number1 }}{% if listing.phone_number2 %}, {{ listing.phone_number2 }}{% endif %}</span>
       </div>
+    </div>
+
+    <div>
+      {% if listing.amenities.all %}
+        <ul class="flex flex-wrap gap-3 text-sm text-gray-700">
+          {% for amenity in listing.amenities.all %}
+            <li class="bg-lime-500 text-white font-semibold px-3 py-1 rounded-full flex items-center gap-2">
+              <i class="fa fa-check w-4 h-4 flex items-center justify-center text-lime-500 bg-white rounded-full"></i>
+              {{ amenity.name }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-gray-500">No amenities listed.</p>
+      {% endif %}
     </div>
 
     <div class="mt-4 text-gray-700">
