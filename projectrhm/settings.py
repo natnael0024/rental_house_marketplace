@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'admindashboard',
     'comment',
     'django.contrib.humanize',
-    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
