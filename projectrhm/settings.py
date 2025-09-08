@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','plenty-bikes-judge.loca.lt','yba.onrender.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1','plenty-bikes-judge.loca.lt','yba.onrender.com','10.195.50.131']
 
 
 # Application definition
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'admindashboard',
     'comment',
     'django.contrib.humanize',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
