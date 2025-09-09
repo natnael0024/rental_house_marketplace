@@ -36,31 +36,33 @@
         <a href="{% url 'listings' %}" class="hover:text-lime-600 transition">Home</a>
           {%if user.is_authenticated%}
           <a href="{% url 'my_listings' %}" class="block py-2 px-2 rounded hover:text-lime-600">My Listings </a>
-          <a href="{% url 'conversation_list' %}" class="block py-2 px-2 rounded hover:bg-lime-400"><i  class="fa fa-comments text-3xl text-lime-500" ></i> </a>
-          <a href="{% url 'listing_create' %}" class="block py-2 px-4 rounded-xl text-white bg-lime-500 hover:bg-lime-600">Post</a>
-          <a href="{%url 'logout' %}"  class="block py-2 px-4 rounded-xl text-lime-500 bg-white hover:bg-lime-500 hover:text-white duration-300">
+          <a href="{% url 'conversation_list' %}" class="block py-2 px-2 rounded"><i  class="fa fa-comments text-3xl text-primary hover:text-secondary" ></i> </a>
+          <a href="{% url 'listing_create' %}" class="block py-2 px-4 rounded-xl text-white bg-primary hover:bg-secondary">Post</a>
+          <a href="{%url 'logout' %}"  class="block py-2 px-4 rounded-xl text-secondary bg-white hover:bg-secondary hover:text-white duration-300">
             Logout
           </a>
           {%else%}
-           <a href="{%url 'login' %}"  class="block py-2 px-4 rounded-xl text-white bg-lime-500 hover:bg-lime-600">
+           <a href="{%url 'login' %}"  class="block py-2 px-4 rounded-xl text-white bg-primary hover:bg-secondary">
             Login
           </a> 
            {%endif%} 
         </div>
 
         <!-- Mobile menu button -->
-        <div class=" md:hidden">
-          <button id="mobile-menu-btn" aria-label="Toggle menu" class="focus:outline-none focus:ring-2 rounded focus:ring-lime-500">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+        <div class="md:hidden">
+          <button id="mobile-menu-btn" aria-label="Toggle menu" class="focus:outline-none rounded ">
+            <svg id="menu-icon" class="w-8 h-8" fill="none" stroke="black" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-              <path d="M4 6h16M4 12h16M4 18h16"></path>
+              <!-- Hamburger icon -->
+              <path d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
+        
       </div>
     </div>
     <!-- Mobile menu (hidden by default) -->
-    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 pt-4 space-y-2">
+    <div id="mobile-menu" class="md:hidden hidden bg-white px-4 pb-4 pt-4 space-y-2 ">
       <a href="{% url 'listings' %}" class="block py-2 px-2 rounded hover:bg-lime-500">Home</a>
       {%if user.is_authenticated%}
       <a href="{% url 'listing_create' %}" class="block py-2 px-2 rounded hover:bg-lime-500">Post</a>
@@ -81,7 +83,7 @@
   </div>
  
   <!-- FOOTER -->
-  <footer class="bg-lime-700 text-white py-8 mt-20">
+  <footer class="bg-secondary text-white py-8 mt-20">
     <div class=" mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center">
       <p class="text-sm">&copy; {{ now }} የሚከራይ ቤት አለ . <a target="_blank" href="https://natnaellegesse.vercel.app" class="hover:underline">Natnael Legesse™</a>.  All rights reserved.</p>
       <div class="space-x-4 mt-4 sm:mt-0">
@@ -94,14 +96,25 @@
 
   <!-- Scripts -->
   <script>
-    // Mobile menu toggle
     const menuBtn = document.getElementById('mobile-menu-btn');
+    const menuIcon = document.getElementById('menu-icon');
     const mobileMenu = document.getElementById('mobile-menu');
-
+  
+    let menuOpen = false;
+  
     menuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
+      menuOpen = !menuOpen;
+  
+      if (menuOpen) {
+        // Change to "X" icon
+        menuIcon.innerHTML = `<path d="M6 18L18 6M6 6l12 12" />`;
+      } else {
+        // Change back to hamburger
+        menuIcon.innerHTML = `<path d="M4 6h16M4 12h16M4 18h16" />`;
+      }
     });
-
   </script>
+  
 </body>
 </html>

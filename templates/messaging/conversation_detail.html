@@ -3,11 +3,11 @@
 {% block content%}
 {% load humanize %}
 
-<div class="container mx-auto px-4 sm:px-6 lg:px-14 mt-3">
+<div class="container  mx-auto px-4 sm:px-6 lg:px-14 ">
     <div>
         {% for participant in conversation.participants.all %}
             {% if participant != request.user %}
-            <h3 class="text-xl font-semibold mb-4 text-center text-lime-500">Conversation with {{ participant.first_name }} </h3>
+            <h3 class="text-xl font-semibold mb-4 text-center text-secondary">Conversation with {{ participant.first_name }} </h3>
             {%endif%}
         {%endfor%}
     </div>
@@ -40,7 +40,7 @@
     
             <!-- Address -->
             <div class="flex items-center gap-2 text-gray-700 text-sm">
-                <i class="fas fa-map-marker-alt text-lime-600"></i>
+                <i class="fas fa-map-marker-alt text-secondary"></i>
                 <span>{{ conversation.listing.area }}, {{ conversation.listing.sub_city }}, {{ conversation.listing.city }}</span>
             </div>
     
@@ -54,11 +54,11 @@
     
     <ul class="space-y-4 mt-5">
         {% for message in messages %}
-        <li class="flex flex-col bg-lime-100 p-2 max-w-[20rem] rounded-b-xl rounded-tr-xl  ">
-            <span class="font-semibold mr-2">{{ message.author.first_name }}:</span>
-            <span class="break-all">{{ message.content }}</span>
-            <span class="text-xs text-gray-500">{{ message.created_at|timesince }}</span>
-        </li>
+        <li class="inline-flex flex-col bg-lime-100 shadow-sm p-4 rounded-b-xl rounded-tr-xl w-auto max-w-full">
+            <span class="font-semibold mr-2">{{ message.author.first_name }}</span>
+            <span class="">{{ message.content }}</span>
+            <span class="text-xs text-gray-500">{{ message.created_at|timesince }} ago</span>
+        </li>        
         {% empty %}
         <li>No messages yet.</li>
         {% endfor %}
@@ -67,7 +67,7 @@
         {% csrf_token %}
         <!-- <input type="text" name="content" placeholder="Type your message..." class=" w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-lime-500"> -->
         {{form.as_p}}
-        <button type="submit" class="mt-2 px-4 py-2   bg-lime-500 text-white rounded hover:bg-lime-600 focus:outline-none focus:bg-lime-600">
+        <button type="submit" class="mt-2 px-4 py-2   bg-secondary text-white rounded hover:bg-lime-600 focus:outline-none focus:bg-lime-600">
             Send
             <i class="fas fa-paper-plane"></i>
         </button>

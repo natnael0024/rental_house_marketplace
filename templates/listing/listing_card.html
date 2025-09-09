@@ -32,7 +32,7 @@
     </div>
     <div class=" flex justify-between items-center mt-4">
       <span class=" text-sm sm:text-[1rem] font-bold text-gray-900 ">ETB {{ listing.price|floatformat:0|intcomma }}<span class="text-sm font-light">/month</span></span>
-      <a href="{% url 'listing_retrieve' listing.id %}" class=" text-sm inline-block bg-lime-500 text-white text-center rounded-xl py-3 px-4 hover:bg-lime-700 transition duration-300">View Details</a>
+      <a href="{% url 'listing_retrieve' listing.id %}" class=" bg-secondary text-sm inline-block  text-white text-center rounded-xl py-3 px-4 hover:bg-lime-600 transition duration-300">View Details</a>
     </div>
   </div>
 </div>
