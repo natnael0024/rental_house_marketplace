@@ -1042,7 +1042,9 @@ select {
 .hidden {
   display: none;
 }
-
+.h-8 {
+  height: 2rem /* 32px */;
+}
 .h-10 {
   height: 2.5rem;
 }
@@ -1055,6 +1057,9 @@ select {
 }
 .w-20 {
   width: 5rem /* 80px */;
+}
+.w-8 {
+  width: 2rem /* 32px */;
 }
 .w-28 {
   width: 7rem /* 112px */;
@@ -2918,11 +2923,11 @@ select {
 
 /*  */
 :root {
-  --primary: rgb(132 204 22 );
-  --secondary: #3f37c9;
-  --dark: #212529;
+  --primary: #c4ab59;
+  --secondary: #4d7c0f;
+  --dark: #000000;
   --light: #f8f9fa;
-  --success: #4cc9f0;
+  --success: #4cf06a;
   --warning: #f8961e;
   --danger: #f72585;
   --gray: #adb5bd;
@@ -3674,3 +3679,77 @@ body {
  border: 2px solid #67e435;
 }
 
+.glow-button {
+  /* width: 220px;
+  height: 50px; */
+  border: none;
+  outline: none;
+  color: #fff;
+  background: var(--secondary);
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+}
+
+.glow-button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  background: linear-gradient(45deg, 
+       #fbff00, #bfff00,  #7bff00,#40ff00, #7bff00, #bfff00, #fbff00);
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(3px);
+  border-radius: 10px;
+  animation: glowing 20s linear infinite;
+  opacity: 1; /* Always visible */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.glow-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--secondary);
+  border-radius: 10px;
+  z-index: -1;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+.bg-primary {
+  --tw-bg-opacity: 1;
+  background-color: var(--primary)
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+
+.hover\:bg-secondary:hover {
+  --tw-bg-opacity: 1;
+  background-color: var(--secondary);
+}
+
+.text-primary {
+  --tw-bg-opacity: 1;
+  color: var(--primary)
+}
+.text-secondary {
+  color: var(--secondary);
+}
+.hover\:text-secondary:hover {
+  --tw-text-opacity: 1;
+  color: var(--secondary);
+}

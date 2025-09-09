@@ -26,21 +26,21 @@
       class="w-full h-full sm:h-[40rem] object-cover rounded-xl shadow-lg transition-all duration-300"
     >
   </div>
-
+ 
   <!-- Right: Listing Details -->
   <div class="flex flex-col gap-5">
 
     <!-- Owner / Message / Controls -->
-    <div class="flex justify-between items-center">
+    <div class="flex flex-col sm:flex-row gap-2 justify-between items-center">
       <div class="flex items-center gap-2">
         <i class="fas fa-user border p-2 rounded-full text-lime-500"></i>
-        <span class="font-semibold">{{ listing.user.first_name }} {{ listing.user.last_name }}</span>
+        <span class=" text-sm sm:text-xl font-semibold">{{ listing.user.first_name }} {{ listing.user.last_name }}</span>
       </div>
 
       {% if user.id != listing.user.id and listing.status %}
-      <a href="{% url 'start_conversation' listing_id=listing.id user_id=listing.user_id %}" class="text-white bg-lime-500 hover:bg-lime-600 transition px-4 py-2 rounded-md text-sm">
+      <a href="{% url 'start_conversation' listing_id=listing.id user_id=listing.user_id %}" class="glow-button text-white bg-secondary hover:bg-lime-600 transition px-4 py-2 rounded-md text-sm ">
         <i class="fas fa-envelope"></i> Send Message
-      </a>
+      </a>  
       {% endif %}
     </div>
 
@@ -49,15 +49,15 @@
     <div class="flex flex-col gap-3">
       <div class="flex gap-2 flex-wrap">
         {% if listing.status %}
-        <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-lime-500 hover:bg-lime-600 px-4 py-2 rounded-md text-sm">
+        <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-secondary hover:bg-lime-600 px-4 py-2 rounded-md text-sm">
           <i class="fa fa-times"></i> Mark as Unavailable
         </a>
         {% else %}
-        <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-lime-500 hover:bg-lime-600 px-4 py-2 rounded-md text-sm">
+        <a href="{% url 'listing-change-status' id=listing.id %}" class="text-white bg-secondary hover:bg-lime-600 px-4 py-2 rounded-md text-sm">
           <i class="fas fa-check"></i> Mark as Available
         </a>
         {% endif %}
-        <a href="{% url 'listing_update' id=listing.id %}" class="text-white bg-lime-500 hover:bg-lime-600 px-4 py-2 rounded-md text-sm">
+        <a href="{% url 'listing_update' id=listing.id %}" class="text-white bg-secondary hover:bg-lime-600 px-4 py-2 rounded-md text-sm">
           <i class="fas fa-edit"></i> Edit
         </a>
         <form action="{% url 'listing_delete' id=listing.id %}" method="post">
