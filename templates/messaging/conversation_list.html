@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="px-4 sm:px-6 lg:px-14"> 
-<h3 class="text-3xl font-bold text-center text-primary mt-6 mb-4 ">Chats</h3>
+<h3 class="text-3xl font-semibold text-center text-secondary mt-6 mb-4 ">Chats</h3>
 
 <div class="flex flex-col gap-4">
     {% for conversation in conversations %}
@@ -26,7 +26,7 @@
                 <div class="text-lg font-semibold text-gray-800 group-hover:text-lime-700 truncate">
                     {% for participant in conversation.participants.all %}
                         {% if participant != request.user %}
-                            {{ participant.first_name }}
+                            {{ participant.first_name }} {{ participant.last_name }}
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -35,7 +35,7 @@
                 <div class="text-sm text-gray-600 truncate max-w-xs ml-4">
                     {% if conversation.messages.exists %}
                     {% with last_message=conversation.messages.last %}
-                        {{ last_message.content }}
+                        {{ last_message.content|truncatewords:10 }}
                     {% endwith %}
                     {% else %}
                         <span class="italic text-gray-300">No messages yet</span>

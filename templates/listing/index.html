@@ -1,5 +1,5 @@
 {%extends "newbase.html"%}
-{%block title %} home {%endblock title %}
+{%block pagetitle %} home {%endblock pagetitle %}
 {% block content%}
 
 <!-- {% if messages %}
@@ -31,7 +31,7 @@
 
     <!-- Filter form overlaid horizontally on carousel -->
     <form method="GET" action="{% url 'listings' %}" 
-          class="absolute sm:bottom-8 sm:left-1/2 sm:transform sm:-translate-x-1/2 bg-amber-50 bg-opacity-90 rounded-xl shadow-lg flex flex-col sm:items-end sm:flex-row gap-3 py-3 px-4 max-w-5xl w-full sm:mx-4">
+          class="absolute sm:bottom-8 sm:left-1/2 sm:transform sm:-translate-x-1/2 bg-white bg-opacity-90 rounded-xl shadow-lg flex flex-col sm:items-end sm:flex-row gap-3 py-3 px-4 max-w-5xl w-full sm:mx-4">
       <!-- City -->
       <div class="flex-1 min-w-[120px] custom-select-wrapper">
         <label for="city" class="block text-sm font-semibold text-lime-700 mb-1">City</label>
@@ -208,45 +208,46 @@
 
       <!-- Pagination -->
  {%if listings|length > 1 %}
- <div class="mt-10">
-  <div class="">
+ <div class="mt-10 px-4 sm:px-6 lg:px-14 flex justify-center ">
+  <div class=" rounded-full py-2 px-2 shadow-sm inline-flex w-auto max-w-full">
    <nav aria-label="Page navigation">
-     <ul class="pagination justify-center flex gap-5"> 
-        <!-- {% if page_obj.has_previous %}
-       <li class="page-item"><a class="page-link " href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">First</a></li>
-       <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Prev</a></li>
-       {% endif %}  -->
+     <ul class="pagination justify-center items-center flex gap-2"> 
+       {% if page_obj.has_previous %}
+       {% comment %} <li class="page-item"><a class="page-link " href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">First</a></li> {% endcomment %}
+       <li class="page-item border w-10 h-10 rounded-full shadow-sm flex items-center justify-center"><a class="page-link text-xl" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+       {% endif %}  
 
        <!-- <div class=" flex gap-5"> -->
         {% for i in page_obj.paginator.page_range %}
        {% if i >= page_obj.number|add:'-5' and i <= page_obj.number|add:'5' %}
        
-       <a class="page-link" href="?page={{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><li class=" p-2 rounded-full w-12 h-12 flex items-center justify-center  {% if i == page_obj.number %} border border-lime-300 bg-secondary text-white {%else%} border border-gray-500 {% endif %}">{{i}}</li></a>
+       <a class="page-link " href="?page={{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><li class=" p-2 rounded-full shadow-sm w-10 h-10 flex items-center justify-center  {% if i == page_obj.number %} bg-secondary shadow-sm text-white {%else%} border  {% endif %}">{{i}}</li></a>
        {% endif %}
        {% endfor %} 
        <!-- </div> -->
        
-        <!-- {% if page_obj.has_next %}
-       <li class="page-item"><a class="page-link " href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Next</a></li>
-       <li class="page-item"><a class="page-link " href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Last</a></li>
-       {% endif %}  -->
+       {% if page_obj.has_next %}
+       <li class="page-item border w-10 h-10 rounded-full shadow-sm flex items-center justify-center"><a  class="page-link text-xl" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+       {% comment %} <li class="page-item"><a class="page-link " href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Last</a></li> {% endcomment %}
+       {% endif %} 
      </ul>
    </nav>
   </div>
  </div>
+ {%endif%}
 
  <div class=" px-4 sm:px-6 lg:px-14 mt-20">
   <form action="{% url 'comment-create' %}" method="POST" class=" flex flex-col gap-2 lg:w-[30rem] mx-auto">
     {% csrf_token %}
     <textarea class=" rounded outline-none focus:ring-2 focus:ring-lime-500 border focus:border-lime-500 " maxlength="500" rows="3" cols="40" name="content" id="comment" placeholder="Please take a moment to share your thoughts on this website"></textarea>
-    <button type="submit" class=" bg-primary text-white hover:bg-secondary duration-300 focus:ring-2 focus:ring-lime-300 p-2 py-3 rounded">
+    <button type="submit" class=" bg-secondary text-white hover:bg-lime-600 duration-300 focus:ring-2 focus:ring-lime-300 p-2 py-3 rounded">
         <i class="fa fa-comment" aria-hidden="true"></i>
         submit
     </button>
   </form>
  </div>
  
- {%endif%}
+
 
  
 <script>
