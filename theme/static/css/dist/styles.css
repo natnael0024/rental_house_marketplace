@@ -1518,7 +1518,10 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(248 113 113 / var(--tw-border-opacity)) /* #f87171 */;
 }
-
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity)) /* #000000 */;
+}
 .bg-blue-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(219 234 254 / var(--tw-bg-opacity));
@@ -1548,6 +1551,15 @@ select {
 .bg-blue-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+}
+
+.bg-warning {
+  --tw-bg-opacity: 1;
+  background-color: var(--warning);
+}
+.hover\:bg-warning-hover:hover {
+  --tw-bg-opacity: 1;
+  background-color: var(--warning-hover);
 }
 
 .bg-cyan-100 {
@@ -1782,7 +1794,9 @@ select {
 .bg-opacity-10 {
   --tw-bg-opacity: 0.1;
 }
-
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
+}
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -2923,12 +2937,13 @@ select {
 
 /*  */
 :root {
-  --primary: #c4ab59;
-  --secondary: #4d7c0f;
+  --primary: #f4d720;
+  --secondary: #2ca500;
   --dark: #000000;
   --light: #f8f9fa;
   --success: #4cf06a;
   --warning: #f8961e;
+  --warning-hover: #d0780c;
   --danger: #f72585;
   --gray: #adb5bd;
 }
@@ -3685,7 +3700,7 @@ body {
   border: none;
   outline: none;
   color: #fff;
-  background: var(--secondary);
+  background: #68e64c;
   cursor: pointer;
   position: relative;
   z-index: 0;
@@ -3700,26 +3715,29 @@ body {
   width: calc(100% + 4px);
   height: calc(100% + 4px);
   background: linear-gradient(45deg, 
-       #fbff00, #bfff00,  #7bff00,#40ff00, #7bff00, #bfff00, #fbff00);
+       #8dff4f, #59ff00,  #12cc05,#14bc08, #12cc05, #59ff00, #8dff4f);
   background-size: 400%;
   z-index: -1;
-  filter: blur(3px);
+  filter: blur(0px);
   border-radius: 10px;
-  animation: glowing 20s linear infinite;
+  animation: glowing 40s linear infinite;
   opacity: 1; /* Always visible */
   transition: opacity 0.3s ease-in-out;
 }
 
-.glow-button::after {
+/* .glow-button::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--secondary);
+  background: #68e64c;
   border-radius: 10px;
   z-index: -1;
+} */
+.glow-button:hover {
+  background: #8bff71;
 }
 
 @keyframes glowing {
@@ -3752,4 +3770,9 @@ body {
 .hover\:text-secondary:hover {
   --tw-text-opacity: 1;
   color: var(--secondary);
+}
+@media (min-width: 640px) {
+  .sm\:w-auto {
+      width: auto;
+  }
 }

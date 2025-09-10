@@ -1,5 +1,5 @@
 {%extends "newbase.html"%}
-{%block title %} My Listings {%endblock title %}
+{%block pagetitle %} | My Listings {%endblock pagetitle %}
 {% block content%}
 
 <div class="px-4 sm:px-6 lg:px-14">
@@ -23,33 +23,34 @@
 
       <!-- Pagination -->
   {%if listings|length > 1 %}
-  <div class="mt-10">
-  <div class="">
-   <nav aria-label="Page navigation">
-     <ul class="pagination justify-center flex gap-5"> 
-        <!-- {% if page_obj.has_previous %}
-       <li class="page-item"><a class="page-link " href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">First</a></li>
-       <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Prev</a></li>
-       {% endif %}  -->
-
-       <!-- <div class=" flex gap-5"> -->
-        {% for i in page_obj.paginator.page_range %}
-       {% if i >= page_obj.number|add:'-5' and i <= page_obj.number|add:'5' %}
-
-       <a class="page-link" href="?page={{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><li class=" p-2 rounded-full w-12 h-12 flex items-center justify-center  {% if i == page_obj.number %} border border-lime-300 bg-lime-400 {%else%} border border-gray-500 {% endif %}">{{i}}</li></a>
-       {% endif %}
-       {% endfor %} 
-       <!-- </div> -->
-
-        <!-- {% if page_obj.has_next %}
-       <li class="page-item"><a class="page-link " href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Next</a></li>
-       <li class="page-item"><a class="page-link " href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Last</a></li>
-       {% endif %}  -->
-     </ul>
-   </nav>
-  </div>
-  </div>
+  <div class="mt-10 px-4 sm:px-6 lg:px-14 flex justify-center ">
+    <div class=" rounded-full py-2 px-2 shadow-sm inline-flex w-auto max-w-full">
+     <nav aria-label="Page navigation">
+       <ul class="pagination justify-center items-center flex gap-2"> 
+         {% if page_obj.has_previous %}
+         {% comment %} <li class="page-item"><a class="page-link " href="?page=1{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">First</a></li> {% endcomment %}
+         <li class="page-item border w-10 h-10 rounded-full shadow-sm flex items-center justify-center"><a class="page-link text-xl" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+         {% endif %}  
+  
+         <!-- <div class=" flex gap-5"> -->
+          {% for i in page_obj.paginator.page_range %}
+         {% if i >= page_obj.number|add:'-5' and i <= page_obj.number|add:'5' %}
+         
+         <a class="page-link " href="?page={{ i }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><li class=" p-2 rounded-full shadow-sm w-10 h-10 flex items-center justify-center  {% if i == page_obj.number %} bg-secondary shadow-sm text-white {%else%} border  {% endif %}">{{i}}</li></a>
+         {% endif %}
+         {% endfor %} 
+         <!-- </div> -->
+         
+         {% if page_obj.has_next %}
+         <li class="page-item border w-10 h-10 rounded-full shadow-sm flex items-center justify-center"><a  class="page-link text-xl" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+         {% comment %} <li class="page-item"><a class="page-link " href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">Last</a></li> {% endcomment %}
+         {% endif %} 
+       </ul>
+     </nav>
+    </div>
+   </div>
   {%endif%}
+  
 </div>
  
 <script>
