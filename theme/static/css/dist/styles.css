@@ -856,6 +856,9 @@ select {
 .top-0 {
   top: 0px;
 }
+.top-1 {
+  top: 0.25rem /* 4px */;
+}
 .top-10 {
   top: 2.5rem /* 40px */;
 }
@@ -3510,6 +3513,9 @@ body {
 .right-1\/2 {
   right: 50%;
 }
+.right-1 {
+  right: 0.25rem /* 4px */;
+}
 .mb-40 {
   margin-bottom: 14rem /* 160px */;
 }
@@ -3774,5 +3780,11 @@ body {
 @media (min-width: 640px) {
   .sm\:w-auto {
       width: auto;
+  }
+}
+
+@media (min-width: 640px) {
+  .sm\:justify-start {
+      justify-content: flex-start;
   }
 }
