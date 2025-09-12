@@ -146,7 +146,6 @@ def listing_create(request):
             form.instance.user_id = request.user.id
             form.save() 
             if request.FILES.getlist('media'):
-                    
                     for media_file in request.FILES.getlist('media'):
                         # media storage upload
                         # file_name = f'listing_{form.instance.id}_{uuid.uuid4()}{os.path.splitext(media_file.name)[1]}'
@@ -201,17 +200,45 @@ def set_status(request,id):
 @login_required
 def listing_update(request, id):
     listing = get_object_or_404(Listing, id=id)
-
+    existing_medias = listing.medias.all()
+    
     if request.method == 'POST':
         form = ListingForm(request.POST,instance=listing)
+        delete_media_ids = request.POST.getlist('delete_media')
         if form.is_valid():
             form.save()
+             ### 🔥 DELETE SELECTED OLD MEDIA ###
+            for media_id in delete_media_ids:
+                try:
+                    media = ListingMedia.objects.get(id=media_id, listing=listing)
+                    # Delete from Supabase
+                    supabase.storage.from_(bucket_name).remove(media.file_name)
+                    media.delete()
+                except ListingMedia.DoesNotExist:
+                    pass
+
+            ### 🔄 UPLOAD NEW MEDIA ###
+            for media_file in request.FILES.getlist('media'):
+                file_ext = os.path.splitext(media_file.name)[1]
+                file_name = f'listing_{listing.id}_{uuid.uuid4()}{file_ext}'
+                upload_response = supabase.storage.from_(bucket_name).upload(file_name, media_file.read(), file_options={"content-type": f"image/{file_ext}"})
+
+                if upload_response.status_code == 200:
+                    public_url = supabase.storage.from_(bucket_name).get_public_url(file_name)
+                    ListingMedia.objects.create(
+                        listing=listing,
+                        file_path=public_url,
+                        file_name=file_name,
+                        media_type=media_file.content_type
+                    )
+
             return redirect("listings")
     else:
         form = ListingForm(instance=listing)
 
     context = {
-        'form':form
+        'form':form,
+        'medias': listing.medias.all()
     }
     return render(request, "listing/edit.html",context)
 
