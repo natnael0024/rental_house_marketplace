@@ -1,11 +1,11 @@
 {% load humanize %}
 
-<div class="relative bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<div class="relative bg-white rounded-2xl shadow-xl shadow-gray-400 overflow-hidden flex flex-col">
   <div class="image-container flex items-center overflow-x-hidden relative no-scrollbar">
     {%if listing.medias.all.count > 1 %}
     {% comment %} <button id="left-btn" class="scroll-btn  z-30 p-2 rounded-full left-btn absolute left-2 transform -translate-y-1/5 text-3xl bg-white/50  w-10 h-10 cursor-pointer"> &#x2039;</button> {% endcomment %}
     {%endif%}
-    <div id="image-scroll" class="image-scroll rounded-lg no-scrollbar flex w-full overflow-x-auto scroll-snap-type-x scroll-smooth ">
+    <div id="image-scroll" class="image-scroll rounded-2xl no-scrollbar flex w-full overflow-x-auto scroll-snap-type-x scroll-smooth ">
       {%if listing.medias.all %}
       {% for media in listing.medias.all %}
         <img class="h-[12rem] sm:h-[16rem] w-full  object-cover flex-none scroll-snap-align-start" src="{{ media.file_path }}" alt="{{ listing.title }}">
@@ -21,18 +21,21 @@
   </div>
   {% load humanize %}
   <div class="p-4 flex flex-col flex-grow">
-    <h3 class="text-xl font-semibold text-lime-800 mb-2">{{ listing.title|truncatechars:25 }}</h3>
-    {% comment %} <span class="text-2xl font-bold text-gray-900 ">ETB {{ listing.price|floatformat:0|intcomma }}<span class="text-sm font-light">/month</span></span> {% endcomment %}
-    <div class="flex flex-col sm:flex-row justify-between text-sm text-gray-500 mt-2">
-      <div class="flex gap-4">
+    <div class="flex items-center justify-between ">
+      <h3 class="text-xl font-semibold text-lime-800">{{ listing.title|truncatechars:25 }}</h3>
+      <div class="flex items-center gap-4">
         <span class=""> <i class="fa fa-bed text-gray-400 " aria-hidden="true"></i> {{ listing.bedrooms }} </span>
         <span class=""> <i class="fa fa-shower text-gray-400" aria-hidden="true"></i> {{ listing.bathrooms }} </span>
       </div>
+    </div>
+    {% comment %} <span class="text-2xl font-bold text-gray-900 ">ETB {{ listing.price|floatformat:0|intcomma }}<span class="text-sm font-light">/month</span></span> {% endcomment %}
+    <div class="flex flex-col sm:flex-row justify-between text-sm text-gray-500 mt-2">
+      
       <span>{{listing.area}}, {{ listing.sub_city }}, {{ listing.city }}</span>
     </div>
-    <div class=" flex justify-between items-center mt-4">
+    <div class=" flex justify-between items-center ">
       <span class=" text-sm sm:text-[1rem] font-bold text-gray-900 ">ETB {{ listing.price|floatformat:0|intcomma }}<span class="text-sm font-light">/month</span></span>
-      <a href="{% url 'listing_retrieve' listing.id %}" class=" bg-secondary text-sm inline-block  text-white text-center rounded-xl py-3 px-4 hover:bg-lime-600 transition duration-300">View Details</a>
+      <a href="{% url 'listing_retrieve' listing.id %}" class=" bg-secondary text-sm inline-block  text-white text-center rounded-xl py-3 px-4 hover:bg-teal-800 transition duration-300">View Details</a>
     </div>
   </div>
 </div>

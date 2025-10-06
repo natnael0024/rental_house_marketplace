@@ -3,7 +3,7 @@
 {% block content%}
 {% load humanize %}
 
-<div class="container  mx-auto px-4 sm:px-6 lg:px-14 ">
+<div class="container  mx-auto px-4 sm:px-6 lg:px-20 ">
     <div>
         {% for participant in conversation.participants.all %}
             {% if participant != request.user %}
@@ -46,15 +46,20 @@
     
             <!-- View Details Link -->
             <a href="{% url 'listing_retrieve' conversation.listing.id %}" 
-               class="text-lime-600 font-semibold text-sm hover:underline mt-2">
+               class="text-teal-500 font-semibold text-sm hover:underline mt-2">
                 View Details →
             </a>
         </div>
     </div>
     
-    <ul class="space-y-4 mt-5">
+    <ul class="space-y-4 mt-5 flex items-start flex-col">
         {% for message in messages %}
-        <li class="inline-flex flex-col bg-lime-100 shadow-sm p-4 rounded-b-xl rounded-tr-xl w-auto max-w-full">
+        <li class="inline-flex flex-col
+            {% if message.author == request.user %}
+                bg-lime-100 self-end
+            {% else %}
+                bg-amber-100 self-start
+            {% endif %} shadow-sm p-4 rounded-b-xl rounded-tr-xl w-auto max-w-full">
             <span class="font-semibold mr-2">{{ message.author.first_name }}</span>
             <span class="">{{ message.content }}</span>
             <span class="text-xs text-gray-500">{{ message.created_at|timesince }} ago</span>
@@ -67,7 +72,7 @@
         {% csrf_token %}
         <!-- <input type="text" name="content" placeholder="Type your message..." class=" w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-lime-500"> -->
         {{form.as_p}}
-        <button type="submit" class="mt-2 px-4 py-2   bg-secondary text-white rounded hover:bg-lime-600 focus:outline-none focus:bg-lime-600">
+        <button type="submit" class="mt-2 px-4 py-2 bg-secondary text-white rounded-lg hover:bg-teal-800 focus:outline-none focus:bg-lime-600">
             Send
             <i class="fas fa-paper-plane"></i>
         </button>

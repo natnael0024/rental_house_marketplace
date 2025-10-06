@@ -88,7 +88,7 @@
 
       <!-- Submit -->
       <div>
-        <button type="submit" class="bg-secondary hover:bg-lime-600 text-white font-semibold rounded-lg px-5 py-3 transition">
+        <button type="submit" class="bg-secondary hover:bg-teal-800 text-white font-semibold rounded-lg px-5 py-3 transition">
           Filter
         </button>
       </div>
@@ -177,7 +177,7 @@
 
       <!-- Submit -->
       <div>
-        <button type="submit" class="bg-secondary w-full hover:bg-lime-600 text-white font-semibold rounded-lg px-5 py-2 transition">
+        <button type="submit" class="bg-secondary w-full hover:bg-teal-800 text-white font-semibold rounded-lg px-5 py-2 transition">
           Filter
         </button>
       </div>
@@ -186,7 +186,7 @@
 </section>
 
 <!-- LISTINGS CARDS -->
-<section class=" mx-auto px-4 sm:px-6 lg:px-14  mt-10 mb-16">
+<section class=" mx-auto px-4 sm:px-6  lg:px-20  mt-10 mb-16">
   <h2 class="text-3xl font-bold text-lime-700 mb-6 text-center">Available Rentals</h2>
   {% comment %} <div class="mt-10">
   <div class=" mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5  gap-4 mx-auto">
@@ -239,8 +239,8 @@
  <div class=" px-4 sm:px-6 lg:px-14 mt-20">
   <form action="{% url 'comment-create' %}" method="POST" class=" flex flex-col gap-2 lg:w-[30rem] mx-auto">
     {% csrf_token %}
-    <textarea class=" rounded outline-none focus:ring-2 focus:ring-lime-500 border focus:border-lime-500 " maxlength="500" rows="3" cols="40" name="content" id="comment" placeholder="Please take a moment to share your thoughts on this website"></textarea>
-    <button type="submit" class=" bg-secondary text-white hover:bg-lime-600 duration-300 focus:ring-2 focus:ring-lime-300 p-2 py-3 rounded">
+    <textarea class=" rounded outline-none focus:ring-2  border focus:border-teal-500 " maxlength="500" rows="3" cols="40" name="content" id="comment" placeholder="Please take a moment to share your thoughts on this website"></textarea>
+    <button type="submit" class=" bg-secondary text-white hover:bg-teal-800 duration-300 focus:ring-2 focus:ring-lime-300 p-2 py-3 rounded">
         <i class="fa fa-comment" aria-hidden="true"></i>
         submit
     </button>
