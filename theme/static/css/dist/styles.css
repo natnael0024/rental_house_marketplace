@@ -3805,6 +3805,9 @@ body {
 .bg-secondary {
   background-color: var(--secondary);
 }
+.bg-secondary-100 {
+  background-color: #1e747050;
+}
 
 .hover\:bg-secondary:hover {
   --tw-bg-opacity: 1;

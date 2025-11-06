@@ -74,8 +74,8 @@
       <h2 class=" text-6xl sm:text-8xl font-bold mb-4 text-center sm:text-left">Helping You Find Home Sweet Home</h2>
       <p class="mb-6 text-lg text-gray-700">Browse thousands of verified properties from trusted landlords.</p>
       <div class="flex flex-col sm:flex-row gap-4">
-        <input type="text" placeholder="Search location..." class="px-4 py-2 border rounded w-full sm:w-auto">
-        <a href="{% url 'listings' %}" class="bg-lime-600 text-white px-6 py-2 rounded hover:bg-lime-700">Search</a>
+        {% comment %} <input type="text" placeholder="Search location..." class="px-4 py-2 border rounded w-full sm:w-auto"> {% endcomment %}
+        <a href="{% url 'listings' %}" class="bg-secondary text-xl text-white px-6 py-4 rounded-full hover:bg-lime-700 hover:shadow">Start Browsing</a>
       </div>
     </div>
     <div class="md:w-1/2 mb-8 md:mb-0">
@@ -122,7 +122,7 @@
     <div class="mt-12 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
       <!-- Step 1 -->
       <div class="text-center">
-        <div class="flex items-center justify-center w-16 h-16 mx-auto bg-lime-100 text-lime-600 rounded-full text-2xl font-bold">
+        <div class="flex items-center justify-center w-16 h-16 mx-auto bg-secondary-100 text-secondary rounded-full text-2xl font-bold">
           1
         </div>
         <h3 class="mt-4 text-xl font-semibold text-gray-800">Browse Listings</h3>
@@ -133,7 +133,7 @@
   
       <!-- Step 2 -->
       <div class="text-center">
-        <div class="flex items-center justify-center w-16 h-16 mx-auto bg-lime-100 text-lime-600 rounded-full text-2xl font-bold">
+        <div class="flex items-center justify-center w-16 h-16 mx-auto bg-secondary-100 text-secondary rounded-full text-2xl font-bold">
           2
         </div>
         <h3 class="mt-4 text-xl font-semibold text-gray-800">Connect with Hosts</h3>
@@ -144,7 +144,7 @@
   
       <!-- Step 3 -->
       <div class="text-center">
-        <div class="flex items-center justify-center w-16 h-16 mx-auto bg-lime-100 text-lime-600 rounded-full text-2xl font-bold">
+        <div class="flex items-center justify-center w-16 h-16 mx-auto bg-secondary-100 text-secondary rounded-full text-2xl font-bold">
           3
         </div>
         <h3 class="mt-4 text-xl font-semibold text-gray-800">Secure Your Home</h3>
@@ -190,13 +190,13 @@
       <!-- Left Bullets -->
       <div class="flex  flex-col gap-8 text-right w-full  md:w-1/5">
         <div class="flex flex-col items-end">
-          <h3 class="text-xl font-semibold text-lime-500 text-left  w-full">Verified Listings</h3>
+          <h3 class="text-xl font-semibold text-secondary text-left  w-full">Verified Listings</h3>
           <p class="text-gray-600 mt-1 max-w-xs text-left">
             Every property is manually reviewed for accuracy and safety.
           </p>
         </div>
         <div class="flex flex-col items-end">
-          <h3 class="text-xl font-semibold text-lime-500 w-full text-left">No Hidden Fees</h3>
+          <h3 class="text-xl font-semibold text-secondary w-full text-left">No Hidden Fees</h3>
           <p class="text-gray-600 mt-1 max-w-xs text-left">
             What you see is what you pay — transparent pricing across all listings.
           </p>
@@ -211,13 +211,13 @@
       <!-- Right Bullets -->
       <div class="flex flex-col gap-8 text-left w-full  md:w-1/5">
         <div class="flex flex-col items-start">
-          <h3 class="text-xl font-semibold text-lime-500">Direct Messaging</h3>
+          <h3 class="text-xl font-semibold text-secondary">Direct Messaging</h3>
           <p class="text-gray-600 mt-1 max-w-xs">
             Contact hosts directly and get answers fast, with no middleman.
           </p>
         </div>
         <div class="flex flex-col items-start">
-          <h3 class="text-xl font-semibold text-lime-500">Local Support</h3>
+          <h3 class="text-xl font-semibold text-secondary">Local Support</h3>
           <p class="text-gray-600 mt-1 max-w-xs">
             Our support team is available to help you, wherever you're renting.
           </p>
